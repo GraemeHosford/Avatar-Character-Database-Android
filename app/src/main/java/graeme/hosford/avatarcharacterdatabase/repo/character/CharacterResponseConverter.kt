@@ -17,10 +17,14 @@ class CharacterResponseConverter @Inject constructor() :
                 eyeColour = eyeColour,
                 hairColour = hairColour,
                 skinColour = skinColour,
+                weapon = weapon,
                 loves = loves,
                 profession = profession,
+                position = position,
                 predecessor = predecessor,
-                affiliation = affiliation
+                affiliation = affiliation,
+                first = first,
+                voicedBy = voicedBy
             )
         }
     }

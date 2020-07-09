@@ -5,7 +5,7 @@ import graeme.hosford.avatarcharacterdatabase.ui.common.uimodel.BaseUiModel
 class CharacterListItemUiModel(
     id: Long,
     val name: String,
-    val photoUrl: String
+    val photoUrl: String?
 ) : BaseUiModel(id) {
     override fun <UiModel : BaseUiModel> areContentsTheSame(other: UiModel): Boolean {
         if (other !is CharacterListItemUiModel) {

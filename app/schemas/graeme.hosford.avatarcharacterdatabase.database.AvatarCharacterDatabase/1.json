@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "bf73217bb4cac08d041c98e2732e8e2c",
+    "identityHash": "85444f69574b34a0436ea10ddadfa134",
     "entities": [
       {
         "tableName": "character_table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `characterId` TEXT NOT NULL, `characterName` TEXT NOT NULL, `photoUrl` TEXT NOT NULL, `gender` TEXT NOT NULL, `eyeColour` TEXT NOT NULL, `hairColour` TEXT NOT NULL, `skinColour` TEXT NOT NULL, `loves` TEXT NOT NULL, `profession` TEXT NOT NULL, `predecessor` TEXT NOT NULL, `affiliation` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `characterId` TEXT NOT NULL, `characterName` TEXT NOT NULL, `photoUrl` TEXT, `gender` TEXT, `eyeColour` TEXT, `hairColour` TEXT, `skinColour` TEXT, `weapon` TEXT, `loves` TEXT, `profession` TEXT, `position` TEXT, `predecessor` TEXT, `affiliation` TEXT, `first` TEXT, `voicedBy` TEXT)",
         "fields": [
           {
             "fieldPath": "id",
@@ -30,55 +30,79 @@
             "fieldPath": "photoUrl",
             "columnName": "photoUrl",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "gender",
             "columnName": "gender",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "eyeColour",
             "columnName": "eyeColour",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "hairColour",
             "columnName": "hairColour",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "skinColour",
             "columnName": "skinColour",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
+          },
+          {
+            "fieldPath": "weapon",
+            "columnName": "weapon",
+            "affinity": "TEXT",
+            "notNull": false
           },
           {
             "fieldPath": "loves",
             "columnName": "loves",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "profession",
             "columnName": "profession",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
+          },
+          {
+            "fieldPath": "position",
+            "columnName": "position",
+            "affinity": "TEXT",
+            "notNull": false
           },
           {
             "fieldPath": "predecessor",
             "columnName": "predecessor",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "affiliation",
             "columnName": "affiliation",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
+          },
+          {
+            "fieldPath": "first",
+            "columnName": "first",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "voicedBy",
+            "columnName": "voicedBy",
+            "affinity": "TEXT",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -94,7 +118,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'bf73217bb4cac08d041c98e2732e8e2c')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '85444f69574b34a0436ea10ddadfa134')"
     ]
   }
 }

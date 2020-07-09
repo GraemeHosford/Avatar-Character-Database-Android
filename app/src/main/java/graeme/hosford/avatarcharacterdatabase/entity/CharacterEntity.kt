@@ -12,15 +12,19 @@ data class CharacterEntity(
     // Ignore these for now. Annoying foreign key stuff can be dealt with later
     /*val allies: List<String>,
     val enemies: List<String>,*/
-    val photoUrl: String,
-    val gender: String,
-    val eyeColour: String,
-    val hairColour: String,
-    val skinColour: String,
-    val loves: String,
-    val profession: String,
-    val predecessor: String,
-    val affiliation: String
+    val photoUrl: String?,
+    val gender: String?,
+    val eyeColour: String?,
+    val hairColour: String?,
+    val skinColour: String?,
+    val weapon: String?,
+    val loves: String?,
+    val profession: String?,
+    val position: String?,
+    val predecessor: String?,
+    val affiliation: String?,
+    val first: String?,
+    val voicedBy: String?
 ) {
     companion object {
         const val TABLE_NAME = "character_table"

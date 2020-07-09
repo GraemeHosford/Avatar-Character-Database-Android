@@ -3,8 +3,10 @@ package graeme.hosford.avatarcharacterdatabase.repo.character
 import graeme.hosford.avatarcharacterdatabase.entity.CharacterEntity
 import graeme.hosford.avatarcharacterdatabase.network.character.CharacterResponse
 import graeme.hosford.avatarcharacterdatabase.repo.common.ResponseConverter
+import javax.inject.Inject
 
-class CharacterResponseConverter : ResponseConverter<CharacterResponse, CharacterEntity> {
+class CharacterResponseConverter @Inject constructor() :
+    ResponseConverter<CharacterResponse, CharacterEntity> {
     override fun toEntity(response: CharacterResponse): CharacterEntity {
         return with(response) {
             CharacterEntity(

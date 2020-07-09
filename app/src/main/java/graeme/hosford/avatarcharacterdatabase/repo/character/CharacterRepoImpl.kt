@@ -5,8 +5,9 @@ import graeme.hosford.avatarcharacterdatabase.entity.CharacterEntity
 import graeme.hosford.avatarcharacterdatabase.network.character.AvatarCharacterRetrofitService
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.toList
+import javax.inject.Inject
 
-class CharacterRepoImpl constructor(
+class CharacterRepoImpl @Inject constructor(
     private val avatarRetrofitService: AvatarCharacterRetrofitService,
     private val characterDao: CharacterDao,
     private val processor: CharacterResponseProcessor

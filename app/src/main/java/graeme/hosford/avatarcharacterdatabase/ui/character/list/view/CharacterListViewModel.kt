@@ -1,5 +1,6 @@
 package graeme.hosford.avatarcharacterdatabase.ui.character.list.view
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,7 +11,7 @@ import graeme.hosford.avatarcharacterdatabase.ui.character.list.model.CharacterL
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 
-class CharacterListViewModel constructor(
+class CharacterListViewModel @ViewModelInject constructor(
     private val characterRepo: CharacterRepo,
     private val characterListItemUiModelProcessor: CharacterListItemUiModelProcessor
 ) : ViewModel() {

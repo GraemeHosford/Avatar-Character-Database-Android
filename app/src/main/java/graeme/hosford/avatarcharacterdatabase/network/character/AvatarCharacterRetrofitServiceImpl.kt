@@ -1,8 +1,10 @@
 package graeme.hosford.avatarcharacterdatabase.network.character
 
 import graeme.hosford.avatarcharacterdatabase.network.common.BaseRetrofitService
+import javax.inject.Inject
 
-class AvatarCharacterRetrofitServiceImpl : BaseRetrofitService<AvatarCharacterRetrofitService>(),
+class AvatarCharacterRetrofitServiceImpl @Inject constructor() :
+    BaseRetrofitService<AvatarCharacterRetrofitService>(),
     AvatarCharacterRetrofitService {
 
     override fun getServiceClass(): Class<AvatarCharacterRetrofitService> =

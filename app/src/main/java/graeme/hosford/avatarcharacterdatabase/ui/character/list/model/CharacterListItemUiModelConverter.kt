@@ -8,7 +8,9 @@ class CharacterListItemUiModelConverter :
     override fun toUiModel(entity: CharacterEntity): CharacterListItemUiModel {
         return with(entity) {
             CharacterListItemUiModel(
-                id
+                id,
+                characterName,
+                photoUrl
             )
         }
     }

@@ -10,9 +10,12 @@ import graeme.hosford.avatarcharacterdatabase.entity.CharacterEntity
 interface CharacterDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun save(character: CharacterEntity)
+    suspend fun save(character: CharacterEntity)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun save(characters: List<CharacterEntity>)
 
     @Query("SELECT * FROM ${CharacterEntity.TABLE_NAME}")
-    fun getAllCharacters(): List<CharacterEntity>
+    suspend fun getAllCharacters(): List<CharacterEntity>
 
 }

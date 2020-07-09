@@ -25,6 +25,7 @@ class CharacterRepoImpl @Inject constructor(
 
             val entities = arrayListOf<CharacterEntity>()
             processor.process(responses).toList(entities)
+            characterDao.save(entities)
             entities
         }
     }

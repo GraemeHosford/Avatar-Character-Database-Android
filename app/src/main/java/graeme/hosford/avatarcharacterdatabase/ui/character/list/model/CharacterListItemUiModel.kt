@@ -6,4 +6,14 @@ class CharacterListItemUiModel(
     id: Long,
     val name: String,
     val photoUrl: String
-) : BaseUiModel(id)
+) : BaseUiModel(id) {
+    override fun <UiModel : BaseUiModel> areContentsTheSame(other: UiModel): Boolean {
+        if (other !is CharacterListItemUiModel) {
+            return false
+        }
+
+        return id == other.id
+                && name == other.name
+                && photoUrl == other.photoUrl
+    }
+}

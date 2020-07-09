@@ -8,7 +8,9 @@ import graeme.hosford.avatarcharacterdatabase.ui.character.list.model.CharacterL
 import graeme.hosford.avatarcharacterdatabase.ui.common.view.recyclerview.BaseRecyclerViewAdapter
 import graeme.hosford.avatarcharacterdatabase.ui.common.view.recyclerview.BaseViewHolder
 
-class CharacterListRecyclerViewAdapter :
+typealias CharacterItemOnClick = (Long, String) -> Unit
+
+class CharacterListRecyclerViewAdapter(private val onItemClick: CharacterItemOnClick) :
     BaseRecyclerViewAdapter<CharacterListItemUiModel, CharacterListViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterListViewHolder {
         return CharacterListViewHolder(
@@ -16,14 +18,21 @@ class CharacterListRecyclerViewAdapter :
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            )
+            ),
+            onItemClick
         )
     }
 }
 
-class CharacterListViewHolder(private val binding: CharacterListItemLayoutBinding) :
-    BaseViewHolder<CharacterListItemUiModel>(binding.root) {
+class CharacterListViewHolder(
+    private val binding: CharacterListItemLayoutBinding,
+    private val characterItemOnClick: CharacterItemOnClick
+) : BaseViewHolder<CharacterListItemUiModel>(binding.root) {
     override fun bind(model: CharacterListItemUiModel) {
+        binding.root.setOnClickListener {
+            characterItemOnClick(model.id, model.name)
+        }
+
         binding.characterNameTextView.text = model.name
         Glide.with(binding.root).load(model.photoUrl).into(binding.characterPictureImageView)
     }

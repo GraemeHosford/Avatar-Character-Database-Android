@@ -2,6 +2,7 @@ package graeme.hosford.avatarcharacterdatabase.ui.character.list.view
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,7 +33,14 @@ class CharacterListFragment :
     }
 
     override fun recyclerViewAdapter(): CharacterListRecyclerViewAdapter =
-        CharacterListRecyclerViewAdapter().apply {
+        CharacterListRecyclerViewAdapter { id, characterName ->
+            Toast.makeText(
+                context,
+                "In depth character details will be added soon.",
+                Toast.LENGTH_LONG
+            )
+                .show()
+        }.apply {
             setHasStableIds(true)
         }
 }

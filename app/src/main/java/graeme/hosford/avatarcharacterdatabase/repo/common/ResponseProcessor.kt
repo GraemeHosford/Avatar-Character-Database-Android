@@ -13,7 +13,8 @@ abstract class ResponseProcessor<Response, Entity>(
     @ExperimentalCoroutinesApi
     fun process(responses: List<Response>): Flow<Entity> {
         return responses.asFlow()
-            .flowOn(Dispatchers.Default)
-            .map { converter.toEntity(it) }
+            .map {
+                converter.toEntity(it)
+            }.flowOn(Dispatchers.Default)
     }
 }

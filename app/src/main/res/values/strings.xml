@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Avatar Character Database</string>
+
+    <string name="character_fragment_toolbar_text">Avatar Characters</string>
 </resources>

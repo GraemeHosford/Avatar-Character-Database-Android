@@ -8,6 +8,6 @@
     <fragment
         android:id="@+id/characterListFragment"
         android:name="graeme.hosford.avatarcharacterdatabase.ui.character.list.view.CharacterListFragment"
-        android:label="CharacterListFragment"
+        android:label="@string/character_fragment_toolbar_text"
         tools:layout="@layout/fragment_base_recycler_view_layout" />
 </navigation>

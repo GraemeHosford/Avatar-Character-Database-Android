@@ -2,6 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="graeme.hosford.avatarcharacterdatabase">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".AvatarCharacterApplication"
         android:allowBackup="true"

@@ -2,6 +2,7 @@ package graeme.hosford.avatarcharacterdatabase.ui.character.list.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
 import graeme.hosford.avatarcharacterdatabase.databinding.CharacterListItemLayoutBinding
 import graeme.hosford.avatarcharacterdatabase.ui.character.list.model.CharacterListItemUiModel
 import graeme.hosford.avatarcharacterdatabase.ui.common.view.recyclerview.BaseRecyclerViewAdapter
@@ -24,5 +25,6 @@ class CharacterListViewHolder(private val binding: CharacterListItemLayoutBindin
     BaseViewHolder<CharacterListItemUiModel>(binding.root) {
     override fun bind(model: CharacterListItemUiModel) {
         binding.characterNameTextView.text = model.name
+        Glide.with(binding.root).load(model.photoUrl).into(binding.characterPictureImageView)
     }
 }

@@ -10,6 +10,6 @@ interface AvatarCharacterRetrofitService {
     }
 
     @GET("/api/v1/characters")
-    fun getAllCharacters(@Query("perPage") perPage: Int): List<CharacterResponse>
+    suspend fun getAllCharacters(@Query("perPage") perPage: Int): List<CharacterResponse>
 
 }

@@ -29,4 +29,6 @@ class CharacterRepoImpl @Inject constructor(
             entities
         }
     }
+
+    override suspend fun getSingleCharacter(id: Long) = characterDao.getCharacterById(id)
 }

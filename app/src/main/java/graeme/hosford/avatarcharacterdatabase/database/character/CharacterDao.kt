@@ -18,4 +18,7 @@ interface CharacterDao {
     @Query("SELECT * FROM ${CharacterEntity.TABLE_NAME}")
     suspend fun getAllCharacters(): List<CharacterEntity>
 
+    @Query("SELECT * FROM ${CharacterEntity.TABLE_NAME} WHERE id = :id")
+    suspend fun getCharacterById(id: Long): CharacterEntity
+
 }

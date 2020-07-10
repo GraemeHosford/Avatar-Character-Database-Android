@@ -1,6 +1,7 @@
 package graeme.hosford.avatarcharacterdatabase.ui.character.list.view.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import graeme.hosford.avatarcharacterdatabase.databinding.CharacterListItemLayoutBinding
@@ -34,6 +35,15 @@ class CharacterListViewHolder(
         }
 
         binding.characterNameTextView.text = model.name
-        Glide.with(binding.root).load(model.photoUrl).into(binding.characterPictureImageView)
+
+        if (model.photoUrl == null) {
+            binding.characterPictureImageView.visibility = View.GONE
+        } else {
+            binding.characterPictureImageView.visibility = View.VISIBLE
+            Glide.with(binding.root)
+                .load(model.photoUrl)
+                .centerCrop()
+                .into(binding.characterPictureImageView)
+        }
     }
 }

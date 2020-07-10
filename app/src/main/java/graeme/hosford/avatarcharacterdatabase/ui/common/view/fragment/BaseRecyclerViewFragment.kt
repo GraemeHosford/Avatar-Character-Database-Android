@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import graeme.hosford.avatarcharacterdatabase.databinding.FragmentBaseRecyclerViewLayoutBinding
@@ -52,6 +53,10 @@ abstract class BaseRecyclerViewFragment<
             layoutManager = recyclerViewLayoutManager
             adapter = recyclerViewAdapter
             setHasFixedSize(true)
+
+            addItemDecoration(
+                DividerItemDecoration(context, recyclerViewLayoutManager.orientation)
+            )
         }
     }
 

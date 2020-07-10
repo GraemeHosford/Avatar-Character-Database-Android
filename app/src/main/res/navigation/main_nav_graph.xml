@@ -17,7 +17,7 @@
     <fragment
         android:id="@+id/characterDetailFragment"
         android:name="graeme.hosford.avatarcharacterdatabase.ui.character.detail.view.CharacterDetailFragment"
-        android:label="${characterName}">
+        android:label="{characterName}">
         <argument
             android:name="characterId"
             app:argType="long" />

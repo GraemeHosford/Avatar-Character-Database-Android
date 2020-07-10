@@ -6,4 +6,7 @@ import javax.inject.Inject
 
 class CharacterListItemUiModelProcessor @Inject constructor(
     converter: CharacterListItemUiModelConverter
-) : ListUiModelProcessor<CharacterEntity, CharacterListItemUiModel>(converter)
+) : ListUiModelProcessor<CharacterEntity, CharacterListItemUiModel>(
+    converter,
+    CharacterListItemUiModelComparator.nameComparator
+)

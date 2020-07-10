@@ -8,8 +8,10 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.toList
 
 abstract class ListUiModelProcessor<Entity, UiModel : BaseUiModel>(
-    private val converter: UiModelConverter<Entity, UiModel>
+    private val converter: UiModelConverter<Entity, UiModel>,
+    private val comparator: Comparator<UiModel>
 ) {
+
     @ExperimentalCoroutinesApi
     suspend fun process(entities: List<Entity>): List<UiModel> {
         val models = arrayListOf<UiModel>()
@@ -18,5 +20,6 @@ abstract class ListUiModelProcessor<Entity, UiModel : BaseUiModel>(
                 converter.toUiModel(it)
             }.flowOn(Dispatchers.Default)
             .toList(models)
+            .sortedWith(comparator)
     }
 }

@@ -38,8 +38,7 @@ class CharacterListFragment :
                 context,
                 "In depth character details will be added soon.",
                 Toast.LENGTH_LONG
-            )
-                .show()
+            ).show()
         }.apply {
             setHasStableIds(true)
         }

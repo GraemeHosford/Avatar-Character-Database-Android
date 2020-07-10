@@ -9,5 +9,20 @@
         android:id="@+id/characterListFragment"
         android:name="graeme.hosford.avatarcharacterdatabase.ui.character.list.view.CharacterListFragment"
         android:label="@string/character_fragment_toolbar_text"
-        tools:layout="@layout/fragment_base_recycler_view_layout" />
+        tools:layout="@layout/fragment_base_recycler_view_layout">
+        <action
+            android:id="@+id/action_characterListFragment_to_characterDetailFragment"
+            app:destination="@id/characterDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/characterDetailFragment"
+        android:name="graeme.hosford.avatarcharacterdatabase.ui.character.detail.view.CharacterDetailFragment"
+        android:label="${characterName}">
+        <argument
+            android:name="characterId"
+            app:argType="long" />
+        <argument
+            android:name="characterName"
+            app:argType="string" />
+    </fragment>
 </navigation>

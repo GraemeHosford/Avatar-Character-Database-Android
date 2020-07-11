@@ -4,13 +4,13 @@ import graeme.hosford.avatarcharacterdatabase.database.character.CharacterDao
 import graeme.hosford.avatarcharacterdatabase.entity.CharacterEntity
 import graeme.hosford.avatarcharacterdatabase.network.character.AvatarCharacterRetrofitService
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.toList
 import javax.inject.Inject
 
 class CharacterRepoImpl @Inject constructor(
     private val avatarRetrofitService: AvatarCharacterRetrofitService,
     private val characterDao: CharacterDao,
-    private val processor: CharacterResponseProcessor
+    private val characterListProcessor: CharacterListResponseProcessor,
+    private val singleCharacterProcessor: SingleCharacterResponseProcessor
 ) : CharacterRepo {
     @ExperimentalCoroutinesApi
     override suspend fun getCharacterList(): List<CharacterEntity> {
@@ -23,12 +23,15 @@ class CharacterRepoImpl @Inject constructor(
                 AvatarCharacterRetrofitService.CHARACTERS_PER_PAGE
             )
 
-            val entities = arrayListOf<CharacterEntity>()
-            processor.process(responses).toList(entities)
+            val entities = characterListProcessor.process(responses)
             characterDao.save(entities)
             entities
         }
     }
 
-    override suspend fun getSingleCharacter(id: Long) = characterDao.getCharacterById(id)
+    @ExperimentalCoroutinesApi
+    override suspend fun getSingleCharacter(id: String): CharacterEntity {
+        val characterResponse = avatarRetrofitService.getCharacterById(id)
+        return singleCharacterProcessor.process(characterResponse)
+    }
 }

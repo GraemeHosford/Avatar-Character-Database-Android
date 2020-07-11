@@ -2,4 +2,17 @@
     <string name="app_name">Avatar Character Database</string>
 
     <string name="character_fragment_toolbar_text">Avatar Characters</string>
+
+    <string name="character_detail_gender">Gender</string>
+    <string name="character_detail_eye_colour">Eye colour</string>
+    <string name="character_detail_hair_colour">Hair colour</string>
+    <string name="character_detail_skin_colour">Skin colour</string>
+    <string name="character_detail_weapon">Weapon</string>
+    <string name="character_detail_loves">Loves</string>
+    <string name="character_detail_profession">Profession</string>
+    <string name="character_detail_position">Position</string>
+    <string name="character_detail_predecessor">Predecessor</string>
+    <string name="character_detail_affiliation">Affiliation</string>
+    <string name="character_detail_first">First</string>
+    <string name="character_detail_voiced_by">Voiced by</string>
 </resources>

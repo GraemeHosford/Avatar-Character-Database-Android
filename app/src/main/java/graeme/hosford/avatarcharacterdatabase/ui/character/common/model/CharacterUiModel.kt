@@ -1,5 +1,6 @@
 package graeme.hosford.avatarcharacterdatabase.ui.character.common.model
 
+import androidx.annotation.CallSuper
 import graeme.hosford.avatarcharacterdatabase.ui.common.uimodel.BaseUiModel
 
 abstract class CharacterUiModel(
@@ -7,6 +8,7 @@ abstract class CharacterUiModel(
     val name: String,
     val photoUrl: String?
 ) : BaseUiModel(id) {
+    @CallSuper
     override fun <UiModel : BaseUiModel> areContentsTheSame(other: UiModel): Boolean {
         if (other !is CharacterUiModel) {
             return false

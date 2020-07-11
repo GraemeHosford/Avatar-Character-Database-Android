@@ -49,6 +49,7 @@ class CharacterDetailFragment :
             } else {
                 Glide.with(this)
                     .load(it.photoUrl)
+                    .circleCrop()
                     .into(binding.characterDetailPicture)
             }
 

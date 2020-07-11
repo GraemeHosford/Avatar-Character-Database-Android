@@ -44,6 +44,18 @@ abstract class BaseRecyclerViewFragment<
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (!::binding.isInitialized) {
+            if (getBaseRecyclerViewLayout() == null) {
+                throw IllegalStateException(
+                    "OnCreateView has been overridden in a child " +
+                            "class of BaseRecyclerViewFragment but #getBaseRecyclerViewLayout must " +
+                            "also be overridden to provide the base layout to the superclass."
+                )
+            }
+
+            binding = getBaseRecyclerViewLayout()!!
+        }
+
         recyclerview = binding.recyclerView
 
         val recyclerViewLayoutManager = LinearLayoutManager(context)
@@ -61,4 +73,6 @@ abstract class BaseRecyclerViewFragment<
     }
 
     abstract fun recyclerViewAdapter(): Adapter
+
+    protected open fun getBaseRecyclerViewLayout(): FragmentBaseRecyclerViewLayoutBinding? = null
 }

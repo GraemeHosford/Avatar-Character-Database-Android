@@ -11,4 +11,7 @@ class AvatarCharacterRetrofitServiceImpl @Inject constructor() :
         AvatarCharacterRetrofitService::class.java
 
     override suspend fun getAllCharacters(perPage: Int) = service.getAllCharacters(perPage)
+
+    override suspend fun getCharacterById(characterId: String) =
+        service.getCharacterById(characterId)
 }

@@ -5,6 +5,7 @@ import graeme.hosford.avatarcharacterdatabase.ui.common.uimodel.BaseUiModel
 
 class CharacterListItemUiModel(
     id: Long,
+    val networkId: String,
     name: String,
     photoUrl: String?
 ) : CharacterUiModel(id, name, photoUrl) {
@@ -14,5 +15,6 @@ class CharacterListItemUiModel(
         }
 
         return super.areContentsTheSame(other)
+                && networkId == other.networkId
     }
 }

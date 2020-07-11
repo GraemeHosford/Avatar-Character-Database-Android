@@ -9,7 +9,7 @@ import graeme.hosford.avatarcharacterdatabase.ui.character.list.model.CharacterL
 import graeme.hosford.avatarcharacterdatabase.ui.common.view.recyclerview.BaseRecyclerViewAdapter
 import graeme.hosford.avatarcharacterdatabase.ui.common.view.recyclerview.BaseViewHolder
 
-typealias CharacterItemOnClick = (Long, String) -> Unit
+typealias CharacterItemOnClick = (Long, String, String) -> Unit
 
 class CharacterListRecyclerViewAdapter(private val onItemClick: CharacterItemOnClick) :
     BaseRecyclerViewAdapter<CharacterListItemUiModel, CharacterListViewHolder>() {
@@ -31,7 +31,7 @@ class CharacterListViewHolder(
 ) : BaseViewHolder<CharacterListItemUiModel>(binding.root) {
     override fun bind(model: CharacterListItemUiModel) {
         binding.root.setOnClickListener {
-            characterItemOnClick(model.id, model.name)
+            characterItemOnClick(model.id, model.networkId, model.name)
         }
 
         binding.characterNameTextView.text = model.name

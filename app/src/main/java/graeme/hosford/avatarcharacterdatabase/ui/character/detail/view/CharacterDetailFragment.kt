@@ -29,7 +29,7 @@ class CharacterDetailFragment :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewmodel.loadCharacterDetails(args.characterId)
+        viewmodel.loadCharacterDetails(args.characterNetworkId)
     }
 
     override fun onCreateView(

@@ -24,5 +24,8 @@
         <argument
             android:name="characterName"
             app:argType="string" />
+        <argument
+            android:name="characterNetworkId"
+            app:argType="string" />
     </fragment>
 </navigation>

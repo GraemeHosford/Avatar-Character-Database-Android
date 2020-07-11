@@ -10,6 +10,7 @@ class CharacterListItemUiModelConverter @Inject constructor() :
         return with(entity) {
             CharacterListItemUiModel(
                 id,
+                characterId,
                 characterName,
                 photoUrl
             )

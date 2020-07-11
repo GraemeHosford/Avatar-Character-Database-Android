@@ -33,11 +33,12 @@ class CharacterListFragment :
     }
 
     override fun recyclerViewAdapter(): CharacterListRecyclerViewAdapter =
-        CharacterListRecyclerViewAdapter { id, characterName ->
+        CharacterListRecyclerViewAdapter { id, networkId, characterName ->
             findNavController().navigate(
                 CharacterListFragmentDirections.actionCharacterListFragmentToCharacterDetailFragment(
                     id,
-                    characterName
+                    characterName,
+                    networkId
                 )
             )
         }.apply {

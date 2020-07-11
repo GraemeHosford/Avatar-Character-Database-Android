@@ -21,7 +21,7 @@ class CharacterDetailViewModel @ViewModelInject constructor(
         get() = characterMutable
 
     @ExperimentalCoroutinesApi
-    fun loadCharacterDetails(id: Long) {
+    fun loadCharacterDetails(id: String) {
         viewModelScope.launch {
             val character = characterRepo.getSingleCharacter(id)
             val characterModel = processor.process(character)

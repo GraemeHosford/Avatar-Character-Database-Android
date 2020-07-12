@@ -7,8 +7,8 @@ import io.mockk.every
 import io.mockk.impl.annotations.RelaxedMockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
-import org.hamcrest.CoreMatchers
-import org.junit.Assert
+import org.hamcrest.CoreMatchers.equalTo
+import org.junit.Assert.assertThat
 import org.junit.Before
 import org.junit.Test
 
@@ -39,7 +39,7 @@ class CharacterListResponseProcessorTest {
 
         val entities = processor.process(responseList)
 
-        Assert.assertThat(entities, CoreMatchers.equalTo(expectedEntityList))
+        assertThat(entities, equalTo(expectedEntityList))
     }
 
     private fun getResponse(

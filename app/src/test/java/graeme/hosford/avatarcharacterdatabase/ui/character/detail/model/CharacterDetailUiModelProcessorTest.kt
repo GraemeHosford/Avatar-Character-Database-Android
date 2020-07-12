@@ -2,6 +2,9 @@ package graeme.hosford.avatarcharacterdatabase.ui.character.detail.model
 
 import graeme.hosford.avatarcharacterdatabase.R
 import graeme.hosford.avatarcharacterdatabase.entity.CharacterEntity
+import io.mockk.MockKAnnotations
+import io.mockk.every
+import io.mockk.impl.annotations.RelaxedMockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.equalTo
@@ -13,11 +16,12 @@ class CharacterDetailUiModelProcessorTest {
 
     private lateinit var processor: CharacterDetailUiModelProcessor
 
+    @RelaxedMockK
     private lateinit var converter: CharacterDetailUiModelConverter
 
     @Before
     fun setup() {
-        converter = CharacterDetailUiModelConverter()
+        MockKAnnotations.init(this)
         processor = CharacterDetailUiModelProcessor(converter)
     }
 
@@ -31,13 +35,15 @@ class CharacterDetailUiModelProcessorTest {
             eyeColour = "Gray",
             loves = "Katara"
         )
-        val expectedModel =
-            getCharacterDetailUiModel(
-                details = listOf(
-                    CharacterSingleDetailUiModel(-2L, R.string.character_detail_eye_colour, "Gray"),
-                    CharacterSingleDetailUiModel(-6L, R.string.character_detail_loves, "Katara")
-                )
+
+        val expectedModel = getCharacterDetailUiModel(
+            details = listOf(
+                CharacterSingleDetailUiModel(-2L, R.string.character_detail_eye_colour, "Gray"),
+                CharacterSingleDetailUiModel(-6L, R.string.character_detail_loves, "Katara")
             )
+        )
+
+        every { converter.toUiModel(entity) } returns expectedModel
 
         val model = processor.process(entity)
 

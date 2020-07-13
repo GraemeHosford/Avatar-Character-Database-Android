@@ -9,6 +9,7 @@ import graeme.hosford.avatarcharacterdatabase.repo.character.CharacterRepo
 import graeme.hosford.avatarcharacterdatabase.ui.character.detail.model.CharacterDetailUiModel
 import graeme.hosford.avatarcharacterdatabase.ui.character.detail.model.CharacterDetailUiModelProcessor
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class CharacterDetailViewModel @ViewModelInject constructor(
@@ -21,11 +22,12 @@ class CharacterDetailViewModel @ViewModelInject constructor(
         get() = characterMutable
 
     @ExperimentalCoroutinesApi
-    fun loadCharacterDetails(id: String) {
+    fun loadCharacterDetails(id: Long, networkId: String) {
         viewModelScope.launch {
-            val character = characterRepo.getSingleCharacter(id)
-            val characterModel = processor.process(character)
-            characterMutable.value = characterModel
+            characterRepo.getSingleCharacter(id, networkId).collect {
+                val characterModel = processor.process(it)
+                characterMutable.value = characterModel
+            }
         }
     }
 

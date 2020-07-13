@@ -60,6 +60,33 @@ class CharacterDaoTest {
         assertEquals(entity2, savedEntity)
     }
 
+    @Test
+    fun updateCharacterByNetworkId_correctlyUpdatesCharacterEntity() = runBlocking {
+        val entity1 = getCharacterEntity(1L, characterId = "TestId1", name = "Aang")
+        val entity2 = getCharacterEntity(2L, characterId = "TestId2", name = "Zuko")
+
+        dao.save(entity1)
+        dao.save(entity2)
+
+        dao.updateCharacterByNetworkId(
+            "TestId2", "Male", "Gold",
+            "Black", null, null, null, null,
+            null, null, null, null, null
+        )
+
+        val expectedEntity = getCharacterEntity(
+            2L, characterId = "TestId2", name = "Zuko",
+            gender = "Male", eyeColour = "Gold", hairColour = "Black"
+        )
+
+        val entity1FromDatabase = dao.getCharacterById(1L)
+        val entity2FromDatabase = dao.getCharacterById(2L)
+
+        /* Check that no other entity besides the one specified has been affected */
+        assertThat(entity1, equalTo(entity1FromDatabase))
+        assertThat(expectedEntity, equalTo(entity2FromDatabase))
+    }
+
     private fun getCharacterEntity(
         id: Long,
         characterId: String = "FakeId",

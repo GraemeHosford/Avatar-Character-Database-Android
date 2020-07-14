@@ -5,7 +5,6 @@ import graeme.hosford.avatarcharacterdatabase.network.character.CharacterRespons
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.RelaxedMockK
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.Assert.assertThat
@@ -27,7 +26,6 @@ class CharacterListResponseProcessorTest {
     }
 
     @Test
-    @ExperimentalCoroutinesApi
     fun process_correctlyConvertsResponses_toEntities() = runBlocking {
         val response = getResponse()
         val responseList = listOf(response)

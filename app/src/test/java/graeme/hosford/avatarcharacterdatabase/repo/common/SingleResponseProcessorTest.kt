@@ -1,6 +1,5 @@
 package graeme.hosford.avatarcharacterdatabase.repo.common
 
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.Assert.assertThat
@@ -17,7 +16,6 @@ class SingleResponseProcessorTest {
     }
 
     @Test
-    @ExperimentalCoroutinesApi
     fun process_correctlyConvertsResponse_toEntity() = runBlocking {
         val response = TestResponse()
 

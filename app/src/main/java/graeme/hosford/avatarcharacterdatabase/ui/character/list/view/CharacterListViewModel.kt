@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import graeme.hosford.avatarcharacterdatabase.repo.character.CharacterRepo
 import graeme.hosford.avatarcharacterdatabase.ui.character.list.model.CharacterListItemUiModel
 import graeme.hosford.avatarcharacterdatabase.ui.character.list.model.CharacterListItemUiModelProcessor
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 
 class CharacterListViewModel @ViewModelInject constructor(
@@ -20,7 +19,6 @@ class CharacterListViewModel @ViewModelInject constructor(
     val characters: LiveData<List<CharacterListItemUiModel>>
         get() = charactersMutable
 
-    @ExperimentalCoroutinesApi
     fun getCharacterList() {
         viewModelScope.launch {
             val characterEntities = characterRepo.getCharacterList()

@@ -8,7 +8,6 @@ import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.impl.annotations.RelaxedMockK
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
@@ -46,7 +45,6 @@ class CharacterRepoImplTest {
     }
 
     @Test
-    @ExperimentalCoroutinesApi
     fun getCharacterList_returnsDatabaseValues_whenDatabase_isNotEmpty() = runBlocking {
         val expectedEntities = listOf(
             getCharacterEntity(1L, name = "Aang")
@@ -62,7 +60,6 @@ class CharacterRepoImplTest {
     }
 
     @Test(expected = Exception::class)
-    @ExperimentalCoroutinesApi
     fun getCharacterList_callsNetwork_andSavesToDatabase_whenDatabase_isEmpty() = runBlocking {
         coEvery { dao.getAllCharacters() } returns emptyList()
 
@@ -89,7 +86,6 @@ class CharacterRepoImplTest {
     }
 
     @Test(expected = Exception::class)
-    @ExperimentalCoroutinesApi
     fun getSingleCharacter_callsDatabaseAndNetwork() = runBlocking {
         val expectedDatabaseEntity = getCharacterEntity(5L, name = "Aang")
         coEvery { dao.getCharacterById(5L) } returns expectedDatabaseEntity

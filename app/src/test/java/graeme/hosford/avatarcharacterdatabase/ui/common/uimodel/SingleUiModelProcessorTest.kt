@@ -1,6 +1,5 @@
 package graeme.hosford.avatarcharacterdatabase.ui.common.uimodel
 
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.MatcherAssert.assertThat
@@ -17,7 +16,6 @@ class SingleUiModelProcessorTest {
     }
 
     @Test
-    @ExperimentalCoroutinesApi
     fun processorProcess_returnsListOfUiModel() = runBlocking {
         val entity = TestEntity(1L, "TestName")
 

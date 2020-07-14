@@ -5,7 +5,6 @@ import graeme.hosford.avatarcharacterdatabase.entity.CharacterEntity
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.RelaxedMockK
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.Assert.assertThat
@@ -26,7 +25,6 @@ class CharacterDetailUiModelProcessorTest {
     }
 
     @Test
-    @ExperimentalCoroutinesApi
     fun processorProcess_returns_CorrectModel() = runBlocking {
         val entity = getCharacterEntity(
             1L,

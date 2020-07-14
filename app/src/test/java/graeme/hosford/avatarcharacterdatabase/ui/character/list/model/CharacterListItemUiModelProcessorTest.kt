@@ -4,7 +4,6 @@ import graeme.hosford.avatarcharacterdatabase.entity.CharacterEntity
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.RelaxedMockK
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.Assert.assertThat
@@ -26,7 +25,6 @@ class CharacterListItemUiModelProcessorTest {
     }
 
     @Test
-    @ExperimentalCoroutinesApi
     fun process_returnsCorrect_listItems() = runBlocking {
         val entity = getCharacterEntity(1L, characterId = "test1", name = "Aang", photoUrl = "url")
         val entities = listOf(entity)

@@ -3,7 +3,6 @@ package graeme.hosford.avatarcharacterdatabase.repo.character
 import graeme.hosford.avatarcharacterdatabase.database.character.CharacterDao
 import graeme.hosford.avatarcharacterdatabase.entity.CharacterEntity
 import graeme.hosford.avatarcharacterdatabase.network.character.AvatarCharacterRetrofitService
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
@@ -26,7 +25,6 @@ class CharacterRepoImpl @Inject constructor(
     * Right now the network call pulls the first 100 characters from the server when there are
     * close to 500 there. This is a hardcoded limit right now to save on load times and data usage.
     * */
-    @ExperimentalCoroutinesApi
     override suspend fun getCharacterList(): List<CharacterEntity> {
         val characters = characterDao.getAllCharacters()
 
@@ -60,7 +58,6 @@ class CharacterRepoImpl @Inject constructor(
     * the character detail after that will not have this issue but the network request will
     * still be made regardless.
     * */
-    @ExperimentalCoroutinesApi
     override suspend fun getSingleCharacter(id: Long, networkId: String) = flow {
         emit(characterDao.getCharacterById(id))
 

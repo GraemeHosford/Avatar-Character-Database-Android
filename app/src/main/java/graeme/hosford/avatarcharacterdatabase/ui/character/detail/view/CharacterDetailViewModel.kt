@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import graeme.hosford.avatarcharacterdatabase.repo.character.CharacterRepo
 import graeme.hosford.avatarcharacterdatabase.ui.character.detail.model.CharacterDetailUiModel
 import graeme.hosford.avatarcharacterdatabase.ui.character.detail.model.CharacterDetailUiModelProcessor
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -21,7 +20,6 @@ class CharacterDetailViewModel @ViewModelInject constructor(
     val characterData: LiveData<CharacterDetailUiModel>
         get() = characterMutable
 
-    @ExperimentalCoroutinesApi
     fun loadCharacterDetails(id: Long, networkId: String) {
         viewModelScope.launch {
             characterRepo.getSingleCharacter(id, networkId).collect {

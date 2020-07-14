@@ -14,6 +14,8 @@ class CharacterResponseConverter @Inject constructor() :
                 characterName = characterName,
                 photoUrl = photoUrl,
                 gender = gender,
+                allies = allies,
+                enemies = enemies,
                 eyeColour = eyeColour,
                 hairColour = hairColour,
                 skinColour = skinColour,

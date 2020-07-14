@@ -1,12 +1,12 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 1,
-    "identityHash": "85444f69574b34a0436ea10ddadfa134",
+    "version": 2,
+    "identityHash": "ad1d5fad875c5a1f0747c1ee456da76a",
     "entities": [
       {
         "tableName": "character_table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `characterId` TEXT NOT NULL, `characterName` TEXT NOT NULL, `photoUrl` TEXT, `gender` TEXT, `eyeColour` TEXT, `hairColour` TEXT, `skinColour` TEXT, `weapon` TEXT, `loves` TEXT, `profession` TEXT, `position` TEXT, `predecessor` TEXT, `affiliation` TEXT, `first` TEXT, `voicedBy` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `characterId` TEXT NOT NULL, `characterName` TEXT NOT NULL, `allies` TEXT, `enemies` TEXT, `photoUrl` TEXT, `gender` TEXT, `eyeColour` TEXT, `hairColour` TEXT, `skinColour` TEXT, `weapon` TEXT, `loves` TEXT, `profession` TEXT, `position` TEXT, `predecessor` TEXT, `affiliation` TEXT, `first` TEXT, `voicedBy` TEXT)",
         "fields": [
           {
             "fieldPath": "id",
@@ -25,6 +25,18 @@
             "columnName": "characterName",
             "affinity": "TEXT",
             "notNull": true
+          },
+          {
+            "fieldPath": "allies",
+            "columnName": "allies",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "enemies",
+            "columnName": "enemies",
+            "affinity": "TEXT",
+            "notNull": false
           },
           {
             "fieldPath": "photoUrl",
@@ -118,7 +130,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '85444f69574b34a0436ea10ddadfa134')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ad1d5fad875c5a1f0747c1ee456da76a')"
     ]
   }
 }

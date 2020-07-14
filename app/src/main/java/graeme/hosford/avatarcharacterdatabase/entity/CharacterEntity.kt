@@ -9,9 +9,8 @@ data class CharacterEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val characterId: String,
     val characterName: String,
-    // Ignore these for now. Annoying foreign key stuff can be dealt with later
-    /*val allies: List<String>,
-    val enemies: List<String>,*/
+    val allies: List<String>?,
+    val enemies: List<String>?,
     val photoUrl: String?,
     val gender: String?,
     val eyeColour: String?,

@@ -37,7 +37,9 @@ class CharacterRepoImpl @Inject constructor(
 
             val entities = characterListProcessor.process(responses)
             characterDao.save(entities)
-            entities
+
+            /* Can't just returns the result of processing as database Ids are needed */
+            characterDao.getAllCharacters()
         }
     }
 

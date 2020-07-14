@@ -81,6 +81,7 @@ class CharacterRepoImplTest {
         coVerify { service.getAllCharacters(AvatarCharacterRetrofitService.CHARACTERS_PER_PAGE) }
         coVerify { characterListResponseProcessor.process(responses) }
         coVerify { dao.save(expectedEntities) }
+        coEvery { dao.getAllCharacters() } returns expectedEntities
 
         assertThat(entities, equalTo(expectedEntities))
     }

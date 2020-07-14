@@ -65,6 +65,8 @@ class CharacterRepoImpl @Inject constructor(
         val entity = singleCharacterProcessor.process(response)
         characterDao.updateCharacterByNetworkId(
             networkId,
+            entity.allies,
+            entity.enemies,
             entity.gender,
             entity.eyeColour,
             entity.hairColour,

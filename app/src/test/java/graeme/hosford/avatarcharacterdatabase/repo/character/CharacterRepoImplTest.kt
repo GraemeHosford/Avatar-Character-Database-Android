@@ -99,7 +99,7 @@ class CharacterRepoImplTest {
             dao.updateCharacterByNetworkId(
                 "TestId", null, null,
                 null, null, null, null, null, null,
-                null, null, null, null
+                null, null, null, null, null, null
             )
         } throws Exception("Mocking a function with no return")
 
@@ -113,7 +113,7 @@ class CharacterRepoImplTest {
             dao.updateCharacterByNetworkId(
                 "TestId", null, null, null, null,
                 null, null, null, null, null,
-                null, null, null
+                null, null, null, null, null
             )
         }
 
@@ -148,6 +148,8 @@ class CharacterRepoImplTest {
         id: Long,
         characterId: String = "FakeId",
         name: String,
+        allies: List<String>? = null,
+        enemies: List<String>? = null,
         photoUrl: String? = null,
         gender: String? = null,
         eyeColour: String? = null,
@@ -162,7 +164,23 @@ class CharacterRepoImplTest {
         first: String? = null,
         voicedBy: String? = null
     ) = CharacterEntity(
-        id, characterId, name, photoUrl, gender, eyeColour, hairColour, skinColour, weapon,
-        loves, profession, position, predecessor, affiliation, first, voicedBy
+        id,
+        characterId,
+        name,
+        allies,
+        enemies,
+        photoUrl,
+        gender,
+        eyeColour,
+        hairColour,
+        skinColour,
+        weapon,
+        loves,
+        profession,
+        position,
+        predecessor,
+        affiliation,
+        first,
+        voicedBy
     )
 }

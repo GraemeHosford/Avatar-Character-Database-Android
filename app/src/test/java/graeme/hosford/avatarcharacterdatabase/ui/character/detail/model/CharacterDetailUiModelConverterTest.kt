@@ -49,6 +49,8 @@ class CharacterDetailUiModelConverterTest {
         id: Long,
         characterId: String = "FakeId",
         name: String,
+        allies: List<String>? = null,
+        enemies: List<String>? = null,
         photoUrl: String? = null,
         gender: String? = null,
         eyeColour: String? = null,
@@ -63,8 +65,24 @@ class CharacterDetailUiModelConverterTest {
         first: String? = null,
         voicedBy: String? = null
     ) = CharacterEntity(
-        id, characterId, name, photoUrl, gender, eyeColour, hairColour, skinColour, weapon,
-        loves, profession, position, predecessor, affiliation, first, voicedBy
+        id,
+        characterId,
+        name,
+        allies,
+        enemies,
+        photoUrl,
+        gender,
+        eyeColour,
+        hairColour,
+        skinColour,
+        weapon,
+        loves,
+        profession,
+        position,
+        predecessor,
+        affiliation,
+        first,
+        voicedBy
     )
 
 }

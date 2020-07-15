@@ -35,7 +35,7 @@ class CharacterDetailUiModelConverterTest {
                     -2L, R.string.character_detail_eye_colour, "Gray"
                 ),
                 CharacterSingleDetailUiModel(
-                    -6L, R.string.character_detail_loves, "Katara"
+                    -8L, R.string.character_detail_loves, "Katara"
                 )
             )
         )

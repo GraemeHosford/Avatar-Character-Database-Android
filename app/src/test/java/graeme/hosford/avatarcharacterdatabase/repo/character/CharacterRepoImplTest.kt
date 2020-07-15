@@ -91,14 +91,25 @@ class CharacterRepoImplTest {
         val expectedDatabaseEntity = getCharacterEntity(5L, name = "Aang")
         coEvery { dao.getCharacterById(5L) } returns expectedDatabaseEntity
 
-        val response = getResponse("Id", characterName = "Aang")
-        val processedEntity = getCharacterEntity(1L, characterId = "id", name = "Aang")
+        val response = getResponse(
+            "TestId",
+            characterName = "Aang",
+            allies = listOf("Iroh"),
+            enemies = listOf("Aang")
+        )
+        val processedEntity = getCharacterEntity(
+            1L,
+            characterId = "id",
+            name = "Aang",
+            allies = listOf("Iroh"),
+            enemies = listOf("Aang")
+        )
         coEvery { service.getCharacterById("TestId") } returns response
 
         coEvery { singleCharacterResponseProcessor.process(response) } returns processedEntity
         coEvery {
             dao.updateCharacterByNetworkId(
-                "TestId", null, null,
+                "TestId", listOf("Iroh"), listOf("Aang"),
                 null, null, null, null, null, null,
                 null, null, null, null, null, null
             )
@@ -112,7 +123,7 @@ class CharacterRepoImplTest {
         coVerify { singleCharacterResponseProcessor.process(response) }
         coVerify {
             dao.updateCharacterByNetworkId(
-                "TestId", null, null, null, null,
+                "TestId", listOf("Iroh"), listOf("Aang"), null, null,
                 null, null, null, null, null,
                 null, null, null, null, null
             )
@@ -124,12 +135,14 @@ class CharacterRepoImplTest {
 
     private fun getResponse(
         characterId: String = "TestId",
-        characterName: String = "Aang"
+        characterName: String = "Aang",
+        allies: List<String> = emptyList(),
+        enemies: List<String> = emptyList()
     ) = CharacterResponse(
         characterId,
         characterName,
-        null,
-        null,
+        allies,
+        enemies,
         null,
         null,
         null,

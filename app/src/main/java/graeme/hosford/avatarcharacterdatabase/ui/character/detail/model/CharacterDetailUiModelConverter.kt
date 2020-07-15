@@ -23,14 +23,24 @@ class CharacterDetailUiModelConverter @Inject constructor() :
                 getDetailUiModel(-2L, R.string.character_detail_eye_colour, eyeColour),
                 getDetailUiModel(-3L, R.string.character_detail_hair_colour, hairColour),
                 getDetailUiModel(-4L, R.string.character_detail_skin_colour, skinColour),
-                getDetailUiModel(-5L, R.string.character_detail_weapon, weapon),
-                getDetailUiModel(-6L, R.string.character_detail_loves, loves),
-                getDetailUiModel(-7L, R.string.character_detail_profession, profession),
-                getDetailUiModel(-8L, R.string.character_detail_position, position),
-                getDetailUiModel(-9L, R.string.character_detail_predecessor, predecessor),
-                getDetailUiModel(-10L, R.string.character_detail_affiliation, affiliation),
-                getDetailUiModel(-11L, R.string.character_detail_first, first),
-                getDetailUiModel(-12L, R.string.character_detail_voiced_by, voicedBy)
+                getDetailUiModel(
+                    -5L,
+                    R.string.character_detail_allies,
+                    allies?.joinToString(separator = "\n")
+                ),
+                getDetailUiModel(
+                    -6L,
+                    R.string.character_detail_enemies,
+                    enemies?.joinToString(separator = "\n")
+                ),
+                getDetailUiModel(-7L, R.string.character_detail_weapon, weapon),
+                getDetailUiModel(-8L, R.string.character_detail_loves, loves),
+                getDetailUiModel(-9L, R.string.character_detail_profession, profession),
+                getDetailUiModel(-10L, R.string.character_detail_position, position),
+                getDetailUiModel(-11L, R.string.character_detail_predecessor, predecessor),
+                getDetailUiModel(-12L, R.string.character_detail_affiliation, affiliation),
+                getDetailUiModel(-13L, R.string.character_detail_first, first),
+                getDetailUiModel(-14L, R.string.character_detail_voiced_by, voicedBy)
             )
         )
     }

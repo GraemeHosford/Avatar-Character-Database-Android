@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import graeme.hosford.avatarcharacterdatabase.database.Converters
 import graeme.hosford.avatarcharacterdatabase.entity.CharacterEntity
 
 @Dao
@@ -22,7 +23,9 @@ interface CharacterDao {
     suspend fun getCharacterById(id: Long): CharacterEntity
 
     @Query(
-        """UPDATE ${CharacterEntity.TABLE_NAME} SET gender = :gender, 
+        """UPDATE ${CharacterEntity.TABLE_NAME} SET allies = :allies, 
+        enemies = :enemies, 
+        gender = :gender, 
         eyeColour = :eyeColour, 
         hairColour = :hairColour, 
         skinColour = :skinColour, 
@@ -38,6 +41,8 @@ interface CharacterDao {
     )
     suspend fun updateCharacterByNetworkId(
         networkId: String,
+        allies: String?,
+        enemies: String?,
         gender: String?,
         eyeColour: String?,
         hairColour: String?,
@@ -51,5 +56,50 @@ interface CharacterDao {
         first: String?,
         voicedBy: String?
     )
+
+    /* Function which accepts list of allies and enemies, converts them to json and then calls
+    * updateCharacterByNetworkId with string values.
+    *
+    * This function is needed due to issue with Room causing generated SQL ignoring the type
+    * converter and requiring number of arguments equal to size of list rather than single argument
+    * for string */
+    suspend fun updateCharacterByNetworkId(
+        networkId: String,
+        allies: List<String>?,
+        enemies: List<String>?,
+        gender: String?,
+        eyeColour: String?,
+        hairColour: String?,
+        skinColour: String?,
+        weapon: String?,
+        loves: String?,
+        profession: String?,
+        position: String?,
+        predecessor: String?,
+        affiliation: String?,
+        first: String?,
+        voicedBy: String?
+    ) {
+        val alliesString = Converters.stringListToJson(allies)
+        val enemiesString = Converters.stringListToJson(enemies)
+
+        updateCharacterByNetworkId(
+            networkId,
+            alliesString,
+            enemiesString,
+            gender,
+            eyeColour,
+            hairColour,
+            skinColour,
+            weapon,
+            loves,
+            profession,
+            position,
+            predecessor,
+            affiliation,
+            first,
+            voicedBy
+        )
+    }
 
 }

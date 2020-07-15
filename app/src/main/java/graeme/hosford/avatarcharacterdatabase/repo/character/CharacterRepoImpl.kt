@@ -82,6 +82,7 @@ class CharacterRepoImpl @Inject constructor(
             entity.first,
             entity.voicedBy
         )
-        emit(entity)
+
+        emit(characterDao.getCharacterById(id))
     }
 }

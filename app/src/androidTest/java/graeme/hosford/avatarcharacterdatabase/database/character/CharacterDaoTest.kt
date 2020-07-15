@@ -69,14 +69,20 @@ class CharacterDaoTest {
         dao.save(entity2)
 
         dao.updateCharacterByNetworkId(
-            "TestId2", "Male", "Gold",
+            "TestId2", listOf("Iroh"), listOf("Zaheer"), "Male", "Gold",
             "Black", null, null, null, null,
             null, null, null, null, null
         )
 
         val expectedEntity = getCharacterEntity(
-            2L, characterId = "TestId2", name = "Zuko",
-            gender = "Male", eyeColour = "Gold", hairColour = "Black"
+            2L,
+            characterId = "TestId2",
+            name = "Zuko",
+            allies = listOf("Iroh"),
+            enemies = listOf("Zaheer"),
+            gender = "Male",
+            eyeColour = "Gold",
+            hairColour = "Black"
         )
 
         val entity1FromDatabase = dao.getCharacterById(1L)
@@ -91,6 +97,8 @@ class CharacterDaoTest {
         id: Long,
         characterId: String = "FakeId",
         name: String,
+        allies: List<String>? = null,
+        enemies: List<String>? = null,
         photoUrl: String? = null,
         gender: String? = null,
         eyeColour: String? = null,
@@ -105,8 +113,24 @@ class CharacterDaoTest {
         first: String? = null,
         voicedBy: String? = null
     ) = CharacterEntity(
-        id, characterId, name, photoUrl, gender, eyeColour, hairColour, skinColour, weapon,
-        loves, profession, position, predecessor, affiliation, first, voicedBy
+        id,
+        characterId,
+        name,
+        allies,
+        enemies,
+        photoUrl,
+        gender,
+        eyeColour,
+        hairColour,
+        skinColour,
+        weapon,
+        loves,
+        profession,
+        position,
+        predecessor,
+        affiliation,
+        first,
+        voicedBy
     )
 
 }

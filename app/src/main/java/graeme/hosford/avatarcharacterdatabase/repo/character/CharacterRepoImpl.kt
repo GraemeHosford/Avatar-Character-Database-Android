@@ -26,21 +26,25 @@ class CharacterRepoImpl @Inject constructor(
     * Right now the network call pulls the first 100 characters from the server when there are
     * close to 500 there. This is a hardcoded limit right now to save on load times and data usage.
     * */
-    override suspend fun getCharacterList(): List<CharacterEntity> {
-        val characters = characterDao.getAllCharacters()
+    override suspend fun getCharacterList() = flow<RepoState<List<CharacterEntity>>> {
+        try {
+            val characters = characterDao.getAllCharacters()
 
-        return if (characters.isNotEmpty()) {
-            characters
-        } else {
-            val responses = avatarRetrofitService.getAllCharacters(
-                AvatarCharacterRetrofitService.CHARACTERS_PER_PAGE
-            )
+            if (characters.isNotEmpty()) {
+                emit(RepoState.completed(characters))
+            } else {
+                val responses = avatarRetrofitService.getAllCharacters(
+                    AvatarCharacterRetrofitService.CHARACTERS_PER_PAGE
+                )
 
-            val entities = characterListProcessor.process(responses)
-            characterDao.save(entities)
+                val entities = characterListProcessor.process(responses)
+                characterDao.save(entities)
 
-            /* Can't just returns the result of processing as database Ids are needed */
-            characterDao.getAllCharacters()
+                /* Can't just returns the result of processing as database Ids are needed */
+                emit(RepoState.completed(characterDao.getAllCharacters()))
+            }
+        } catch (e: Exception) {
+            emit(RepoState.error())
         }
     }
 
@@ -85,10 +89,10 @@ class CharacterRepoImpl @Inject constructor(
                     entity.first,
                     entity.voicedBy
                 )
+
+                emit(RepoState.completed(characterDao.getCharacterById(id)))
             } catch (e: Exception) {
                 emit(RepoState.error())
             }
-
-            emit(RepoState.completed(characterDao.getCharacterById(id)))
-    }
+        }
 }

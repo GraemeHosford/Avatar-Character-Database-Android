@@ -16,7 +16,8 @@ class CharacterListFragment :
     BaseRecyclerViewFragment<
             CharacterListItemUiModel,
             CharacterListViewHolder,
-            CharacterListRecyclerViewAdapter>() {
+            CharacterListRecyclerViewAdapter,
+            CharacterListViewModel>() {
 
     private val viewmodel: CharacterListViewModel by viewModels()
 
@@ -24,6 +25,8 @@ class CharacterListFragment :
         super.onCreate(savedInstanceState)
         viewmodel.getCharacterList()
     }
+
+    override fun registerViewModel() = viewmodel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

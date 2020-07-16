@@ -14,6 +14,7 @@ import graeme.hosford.avatarcharacterdatabase.ui.common.uimodel.BaseUiModel
 import graeme.hosford.avatarcharacterdatabase.ui.common.view.recyclerview.BaseRecyclerViewAdapter
 import graeme.hosford.avatarcharacterdatabase.ui.common.view.recyclerview.BaseViewHolder
 import graeme.hosford.avatarcharacterdatabase.ui.common.view.viewmodel.BaseViewModel
+import graeme.hosford.avatarcharacterdatabase.ui.common.view.viewmodel.ViewModelResult
 
 /**
  * Base class for handling common functionality in a [Fragment] which has a [RecyclerView].
@@ -74,36 +75,25 @@ abstract class BaseRecyclerViewFragment<
             )
         }
 
-        viewmodel.errorLiveData.observe(viewLifecycleOwner, Observer {
+        viewmodel.resultLiveData.observe(viewLifecycleOwner, Observer {
             when (it) {
-                true -> {
+                ViewModelResult.ERROR -> {
                     binding.recyclerView.visibility = View.GONE
                     binding.defaultLoadingLayout.root.visibility = View.GONE
                     binding.defaultErrorLayout.root.visibility = View.VISIBLE
                 }
-                false -> binding.defaultErrorLayout.root.visibility = View.GONE
-            }
-        })
-
-        viewmodel.loadingLiveData.observe(viewLifecycleOwner, Observer {
-            when (it) {
-                true -> {
+                ViewModelResult.LOADING -> {
                     binding.defaultLoadingLayout.root.visibility = View.VISIBLE
                     binding.recyclerView.visibility = View.GONE
                     binding.defaultErrorLayout.root.visibility = View.GONE
                 }
-                false -> binding.defaultLoadingLayout.root.visibility = View.GONE
-            }
-        })
-
-        viewmodel.completedLiveData.observe(viewLifecycleOwner, Observer {
-            when (it) {
-                true -> {
+                ViewModelResult.COMPLETED -> {
                     binding.recyclerView.visibility = View.VISIBLE
                     binding.defaultErrorLayout.root.visibility = View.GONE
                     binding.defaultLoadingLayout.root.visibility = View.GONE
                 }
-                false -> binding.recyclerView.visibility = View.GONE
+                /* Should never get to this null branch */
+                null -> throw IllegalStateException("ViewModelResult is null")
             }
         })
     }

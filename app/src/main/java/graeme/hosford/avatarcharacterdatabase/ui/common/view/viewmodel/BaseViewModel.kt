@@ -7,17 +7,9 @@ import androidx.lifecycle.ViewModel
 import graeme.hosford.avatarcharacterdatabase.repo.common.RepoState
 
 abstract class BaseViewModel<Result> : ViewModel() {
-    private val errorMutable = MutableLiveData<Boolean>()
-    val errorLiveData: LiveData<Boolean>
-        get() = errorMutable
-
-    private val loadingMutable = MutableLiveData<Boolean>()
-    val loadingLiveData: LiveData<Boolean>
-        get() = loadingMutable
-
-    private val completedMutable = MutableLiveData<Boolean>()
-    val completedLiveData: LiveData<Boolean>
-        get() = completedMutable
+    private val resultMutable = MutableLiveData<ViewModelResult>()
+    val resultLiveData: LiveData<ViewModelResult>
+        get() = resultMutable
 
     protected suspend fun handleRepoStateResult(repoState: RepoState<Result>) {
         when (repoState) {
@@ -29,20 +21,16 @@ abstract class BaseViewModel<Result> : ViewModel() {
 
     @CallSuper
     protected open suspend fun doOnCompletedResult(result: Result) {
-        errorMutable.value = false
-        loadingMutable.value = false
-        completedMutable.value = true
+        resultMutable.value = ViewModelResult.COMPLETED
     }
 
+    @CallSuper
     protected open suspend fun doOnErrorResult() {
-        errorMutable.value = true
-        completedMutable.value = false
-        loadingMutable.value = false
+        resultMutable.value = ViewModelResult.ERROR
     }
 
+    @CallSuper
     protected open suspend fun doOnLoading() {
-        loadingMutable.value = true
-        completedMutable.value = false
-        errorMutable.value = false
+        resultMutable.value = ViewModelResult.LOADING
     }
 }

@@ -3,6 +3,7 @@ package graeme.hosford.avatarcharacterdatabase.repo.character
 import graeme.hosford.avatarcharacterdatabase.database.character.CharacterDao
 import graeme.hosford.avatarcharacterdatabase.entity.CharacterEntity
 import graeme.hosford.avatarcharacterdatabase.network.character.AvatarCharacterRetrofitService
+import graeme.hosford.avatarcharacterdatabase.repo.common.RepoState
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
@@ -60,29 +61,34 @@ class CharacterRepoImpl @Inject constructor(
     * the character detail after that will not have this issue but the network request will
     * still be made regardless.
     * */
-    override suspend fun getSingleCharacter(id: Long, networkId: String) = flow {
-        emit(characterDao.getCharacterById(id))
+    override suspend fun getSingleCharacter(id: Long, networkId: String) =
+        flow<RepoState<CharacterEntity>> {
 
-        val response = avatarRetrofitService.getCharacterById(networkId)
-        val entity = singleCharacterProcessor.process(response)
-        characterDao.updateCharacterByNetworkId(
-            networkId,
-            entity.allies,
-            entity.enemies,
-            entity.gender,
-            entity.eyeColour,
-            entity.hairColour,
-            entity.skinColour,
-            entity.weapon,
-            entity.loves,
-            entity.profession,
-            entity.position,
-            entity.predecessor,
-            entity.affiliation,
-            entity.first,
-            entity.voicedBy
-        )
+            try {
+                emit(RepoState.completed(characterDao.getCharacterById(id)))
+                val response = avatarRetrofitService.getCharacterById(networkId)
+                val entity = singleCharacterProcessor.process(response)
+                characterDao.updateCharacterByNetworkId(
+                    networkId,
+                    entity.allies,
+                    entity.enemies,
+                    entity.gender,
+                    entity.eyeColour,
+                    entity.hairColour,
+                    entity.skinColour,
+                    entity.weapon,
+                    entity.loves,
+                    entity.profession,
+                    entity.position,
+                    entity.predecessor,
+                    entity.affiliation,
+                    entity.first,
+                    entity.voicedBy
+                )
+            } catch (e: Exception) {
+                emit(RepoState.error())
+            }
 
-        emit(characterDao.getCharacterById(id))
+            emit(RepoState.completed(characterDao.getCharacterById(id)))
     }
 }

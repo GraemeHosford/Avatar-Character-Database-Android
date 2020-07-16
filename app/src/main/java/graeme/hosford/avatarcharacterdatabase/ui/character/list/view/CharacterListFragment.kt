@@ -19,14 +19,14 @@ class CharacterListFragment :
             CharacterListRecyclerViewAdapter,
             CharacterListViewModel>() {
 
-    private val viewmodel: CharacterListViewModel by viewModels()
+    private val characterListViewModel: CharacterListViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewmodel.getCharacterList()
     }
 
-    override fun registerViewModel() = viewmodel
+    override fun registerViewModel() = characterListViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

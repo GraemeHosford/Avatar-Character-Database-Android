@@ -27,6 +27,8 @@ class CharacterRepoImpl @Inject constructor(
     * close to 500 there. This is a hardcoded limit right now to save on load times and data usage.
     * */
     override suspend fun getCharacterList() = flow<RepoState<List<CharacterEntity>>> {
+        emit(RepoState.loading())
+
         try {
             val characters = characterDao.getAllCharacters()
 
@@ -67,6 +69,7 @@ class CharacterRepoImpl @Inject constructor(
     * */
     override suspend fun getSingleCharacter(id: Long, networkId: String) =
         flow<RepoState<CharacterEntity>> {
+            emit(RepoState.loading())
 
             try {
                 emit(RepoState.completed(characterDao.getCharacterById(id)))

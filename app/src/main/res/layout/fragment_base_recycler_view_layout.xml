@@ -11,6 +11,12 @@
         android:visibility="gone"
         tools:visibility="visible" />
 
+    <include
+        android:id="@+id/default_loading_layout"
+        layout="@layout/default_loading_layout"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"

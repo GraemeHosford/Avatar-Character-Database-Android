@@ -74,16 +74,36 @@ abstract class BaseRecyclerViewFragment<
             )
         }
 
-        registerViewModel().errorLiveData.observe(viewLifecycleOwner, Observer {
+        viewmodel.errorLiveData.observe(viewLifecycleOwner, Observer {
             when (it) {
                 true -> {
-                    binding.recyclerView.visibility = View.INVISIBLE
+                    binding.recyclerView.visibility = View.GONE
+                    binding.defaultLoadingLayout.root.visibility = View.GONE
                     binding.defaultErrorLayout.root.visibility = View.VISIBLE
                 }
-                false -> {
-                    binding.recyclerView.visibility = View.VISIBLE
+                false -> binding.defaultErrorLayout.root.visibility = View.GONE
+            }
+        })
+
+        viewmodel.loadingLiveData.observe(viewLifecycleOwner, Observer {
+            when (it) {
+                true -> {
+                    binding.defaultLoadingLayout.root.visibility = View.VISIBLE
+                    binding.recyclerView.visibility = View.GONE
                     binding.defaultErrorLayout.root.visibility = View.GONE
                 }
+                false -> binding.defaultLoadingLayout.root.visibility = View.GONE
+            }
+        })
+
+        viewmodel.completedLiveData.observe(viewLifecycleOwner, Observer {
+            when (it) {
+                true -> {
+                    binding.recyclerView.visibility = View.VISIBLE
+                    binding.defaultErrorLayout.root.visibility = View.GONE
+                    binding.defaultLoadingLayout.root.visibility = View.GONE
+                }
+                false -> binding.recyclerView.visibility = View.GONE
             }
         })
     }

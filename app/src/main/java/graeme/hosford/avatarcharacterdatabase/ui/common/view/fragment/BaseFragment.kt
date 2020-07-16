@@ -1,5 +1,6 @@
 package graeme.hosford.avatarcharacterdatabase.ui.common.view.fragment
 
+import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import graeme.hosford.avatarcharacterdatabase.ui.common.view.viewmodel.BaseViewModel
@@ -11,5 +12,12 @@ import graeme.hosford.avatarcharacterdatabase.ui.common.view.viewmodel.BaseViewM
  * [BaseRecyclerViewFragment] instead.
  */
 abstract class BaseFragment<VM : BaseViewModel<*>> : Fragment() {
+    protected lateinit var viewmodel: VM
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewmodel = registerViewModel()
+    }
+
     abstract fun registerViewModel(): VM
 }

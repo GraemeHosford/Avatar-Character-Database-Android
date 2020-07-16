@@ -24,7 +24,7 @@ abstract class BaseRecyclerViewFragment<
         UiModel : BaseUiModel,
         ViewHolder : BaseViewHolder<UiModel>,
         Adapter : BaseRecyclerViewAdapter<UiModel, ViewHolder>,
-        VM : BaseViewModel
+        VM : BaseViewModel<*>
         > : BaseFragment<VM>() {
 
     private lateinit var binding: FragmentBaseRecyclerViewLayoutBinding

@@ -10,6 +10,6 @@ import graeme.hosford.avatarcharacterdatabase.ui.common.view.viewmodel.BaseViewM
  * Fragments which need to handle a [RecyclerView] should inherit from
  * [BaseRecyclerViewFragment] instead.
  */
-abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
+abstract class BaseFragment<VM : BaseViewModel<*>> : Fragment() {
     abstract fun registerViewModel(): VM
 }

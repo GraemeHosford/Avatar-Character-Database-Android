@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -12,6 +13,7 @@ import graeme.hosford.avatarcharacterdatabase.databinding.FragmentBaseRecyclerVi
 import graeme.hosford.avatarcharacterdatabase.ui.common.uimodel.BaseUiModel
 import graeme.hosford.avatarcharacterdatabase.ui.common.view.recyclerview.BaseRecyclerViewAdapter
 import graeme.hosford.avatarcharacterdatabase.ui.common.view.recyclerview.BaseViewHolder
+import graeme.hosford.avatarcharacterdatabase.ui.common.view.viewmodel.BaseViewModel
 
 /**
  * Base class for handling common functionality in a [Fragment] which has a [RecyclerView].
@@ -21,8 +23,9 @@ import graeme.hosford.avatarcharacterdatabase.ui.common.view.recyclerview.BaseVi
 abstract class BaseRecyclerViewFragment<
         UiModel : BaseUiModel,
         ViewHolder : BaseViewHolder<UiModel>,
-        Adapter : BaseRecyclerViewAdapter<UiModel, ViewHolder>
-        > : BaseFragment() {
+        Adapter : BaseRecyclerViewAdapter<UiModel, ViewHolder>,
+        VM : BaseViewModel
+        > : BaseFragment<VM>() {
 
     private lateinit var binding: FragmentBaseRecyclerViewLayoutBinding
     protected lateinit var recyclerview: RecyclerView
@@ -70,6 +73,19 @@ abstract class BaseRecyclerViewFragment<
                 DividerItemDecoration(context, recyclerViewLayoutManager.orientation)
             )
         }
+
+        registerViewModel().errorLiveData.observe(viewLifecycleOwner, Observer {
+            when (it) {
+                true -> {
+                    binding.recyclerView.visibility = View.INVISIBLE
+                    binding.defaultErrorLayout.root.visibility = View.VISIBLE
+                }
+                false -> {
+                    binding.recyclerView.visibility = View.VISIBLE
+                    binding.defaultErrorLayout.root.visibility = View.GONE
+                }
+            }
+        })
     }
 
     abstract fun recyclerViewAdapter(): Adapter

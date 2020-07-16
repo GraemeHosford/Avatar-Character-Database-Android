@@ -20,7 +20,8 @@ class CharacterDetailFragment :
     BaseRecyclerViewFragment<
             CharacterSingleDetailUiModel,
             CharacterDetailViewHolder,
-            CharacterDetailRecyclerViewAdapter>() {
+            CharacterDetailRecyclerViewAdapter,
+            CharacterDetailViewModel>() {
 
     private val viewmodel: CharacterDetailViewModel by viewModels()
     private val args: CharacterDetailFragmentArgs by navArgs()
@@ -31,6 +32,8 @@ class CharacterDetailFragment :
         super.onCreate(savedInstanceState)
         viewmodel.loadCharacterDetails(args.characterId, args.characterNetworkId)
     }
+
+    override fun registerViewModel() = viewmodel
 
     override fun onCreateView(
         inflater: LayoutInflater,

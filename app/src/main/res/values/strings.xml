@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Avatar Character Database</string>
 
+    <string name="default_error_message">There was an error loading your data. Please try again</string>
+
     <string name="character_fragment_toolbar_text">Avatar Characters</string>
 
     <string name="character_detail_gender">Gender</string>

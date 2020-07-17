@@ -34,6 +34,6 @@ This project uses the MVVM architecture as recommended by Google.
   
 I have also added in the concept of processors and converters which are in charge of taking network and database responses and converting them to a form more suitable to be used by the next layer up in the architecture.  
 
-For example there is a `CharacterListResponseProcessor` class found in the `repo.character` package which converts the network response `CharacterResponse`into a `CharacterEntity` which can be saved in the database. This class `CharacterListItemUiModelProcessor`found in the`ui.character.list.model`package is then used to convert a `CharacterEntity`into a `CharacterListItemUiModel`.
+For example there is a `CharacterListResponseProcessor` class found in the `repo.character` package which converts the network response `CharacterResponse`into a `CharacterEntity` which can be saved in the database. The class `CharacterListItemUiModelProcessor`found in the`ui.character.list.model`package is then used to convert a `CharacterEntity`into a `CharacterListItemUiModel`.
 ***  
 I am always looking to improve my code and take on new suggestions so if you see anything in there you think could be improved upon then feel free to create an issue!

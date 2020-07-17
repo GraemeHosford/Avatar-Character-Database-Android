@@ -92,6 +92,17 @@ class CharacterRepoImplTest {
         assertThat(data, equalTo(expectedEntities))
     }
 
+    @Test
+    fun getCharacterList_emitsRepoStateError_onError() = runBlocking {
+        coEvery { dao.getAllCharacters() } throws Exception()
+
+        val emits = arrayListOf<RepoState<List<CharacterEntity>>>()
+        repo.getCharacterList().toList(emits)
+
+        assertTrue(emits[0] is RepoState.Loading)
+        assertTrue(emits[1] is RepoState.Error)
+    }
+
     @Test(expected = Exception::class)
     fun getSingleCharacter_callsDatabaseAndNetwork() = runBlocking {
         val expectedDatabaseEntity = getCharacterEntity(5L, name = "Aang")
@@ -138,6 +149,17 @@ class CharacterRepoImplTest {
         assertTrue(emits[0] is RepoState.Loading)
         assertThat((emits[1] as RepoState.Completed).data, equalTo(expectedDatabaseEntity))
         assertThat((emits[2] as RepoState.Completed).data, equalTo(expectedDatabaseEntity))
+    }
+
+    @Test
+    fun getSingleCharacter_emitsRepoStateError_onError() = runBlocking {
+        coEvery { dao.getCharacterById(3L) } throws Exception()
+
+        val emits = arrayListOf<RepoState<CharacterEntity>>()
+        repo.getSingleCharacter(3L, "Test").toList(emits)
+
+        assertTrue(emits[0] is RepoState.Loading)
+        assertTrue(emits[1] is RepoState.Error)
     }
 
     private fun getResponse(

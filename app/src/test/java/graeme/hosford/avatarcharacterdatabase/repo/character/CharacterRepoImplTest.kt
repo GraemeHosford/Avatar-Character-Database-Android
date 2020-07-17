@@ -9,13 +9,12 @@ import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.impl.annotations.RelaxedMockK
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.take
+import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.Assert.assertThat
+import org.junit.Assert.assertTrue
 import org.junit.Before
-import org.junit.Ignore
 import org.junit.Test
 
 class CharacterRepoImplTest {
@@ -54,12 +53,13 @@ class CharacterRepoImplTest {
 
         coEvery { dao.getAllCharacters() } returns expectedEntities
 
-        repo.getCharacterList().collect {
-            val data = (it as RepoState.Completed).data
-            coVerify(exactly = 0) { service.getAllCharacters(AvatarCharacterRetrofitService.CHARACTERS_PER_PAGE) }
+        val emits = arrayListOf<RepoState<List<CharacterEntity>>>()
+        repo.getCharacterList().toList(emits)
 
-            assertThat(data, equalTo(expectedEntities))
-        }
+        assertTrue(emits[0] is RepoState.Loading)
+        coVerify(exactly = 0) { service.getAllCharacters(AvatarCharacterRetrofitService.CHARACTERS_PER_PAGE) }
+
+        assertThat((emits[1] as RepoState.Completed).data, equalTo(expectedEntities))
     }
 
     @Test(expected = Exception::class)
@@ -78,23 +78,20 @@ class CharacterRepoImplTest {
         coEvery { characterListResponseProcessor.process(responses) } returns expectedEntities
         coEvery { dao.save(expectedEntities) } throws Exception("Just need something here")
 
-        repo.getCharacterList().collect {
-            coVerify { dao.getAllCharacters() }
-            coVerify { service.getAllCharacters(AvatarCharacterRetrofitService.CHARACTERS_PER_PAGE) }
-            coVerify { characterListResponseProcessor.process(responses) }
-            coVerify { dao.save(expectedEntities) }
-            coEvery { dao.getAllCharacters() } returns expectedEntities
+        val emits = arrayListOf<RepoState<List<CharacterEntity>>>()
+        repo.getCharacterList().toList(emits)
 
-            val data = (it as RepoState.Completed).data
-            assertThat(data, equalTo(expectedEntities))
-        }
+        coVerify { dao.getAllCharacters() }
+        coVerify { service.getAllCharacters(AvatarCharacterRetrofitService.CHARACTERS_PER_PAGE) }
+        coVerify { characterListResponseProcessor.process(responses) }
+        coVerify { dao.save(expectedEntities) }
+        coEvery { dao.getAllCharacters() } returns expectedEntities
+
+        assertTrue(emits[0] is RepoState.Loading)
+        val data = (emits[1] as RepoState.Completed).data
+        assertThat(data, equalTo(expectedEntities))
     }
 
-    @Ignore(
-        "Test failing on verifying retrofit service is called. " +
-                "No error shown saying any calls after that are failing but these later " +
-                "calls can't happen without the retrofit call. So unsure of why this is failing."
-    )
     @Test(expected = Exception::class)
     fun getSingleCharacter_callsDatabaseAndNetwork() = runBlocking {
         val expectedDatabaseEntity = getCharacterEntity(5L, name = "Aang")
@@ -124,18 +121,23 @@ class CharacterRepoImplTest {
             )
         } throws Exception("Mocking a function with no return")
 
-        repo.getSingleCharacter(5L, "TestId").take(2).collect {
-            coVerify { dao.getCharacterById(5L) }
-            coVerify { service.getCharacterById("TestId") }
-            coVerify { singleCharacterResponseProcessor.process(response) }
-            coVerify {
-                dao.updateCharacterByNetworkId(
-                    "TestId", listOf("Iroh"), listOf("Aang"), null, null,
-                    null, null, null, null, null,
-                    null, null, null, null, null
-                )
-            }
+        val emits = arrayListOf<RepoState<CharacterEntity>>()
+        repo.getSingleCharacter(5L, "TestId").toList(emits)
+
+        coVerify { dao.getCharacterById(5L) }
+        coVerify { service.getCharacterById("TestId") }
+        coVerify { singleCharacterResponseProcessor.process(response) }
+        coVerify {
+            dao.updateCharacterByNetworkId(
+                "TestId", listOf("Iroh"), listOf("Aang"), null, null,
+                null, null, null, null, null,
+                null, null, null, null, null
+            )
         }
+
+        assertTrue(emits[0] is RepoState.Loading)
+        assertThat((emits[1] as RepoState.Completed).data, equalTo(expectedDatabaseEntity))
+        assertThat((emits[2] as RepoState.Completed).data, equalTo(expectedDatabaseEntity))
     }
 
     private fun getResponse(

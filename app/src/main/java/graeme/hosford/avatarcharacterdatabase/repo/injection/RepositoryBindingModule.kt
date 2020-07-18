@@ -4,8 +4,10 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
-import graeme.hosford.avatarcharacterdatabase.repo.character.CharacterRepo
-import graeme.hosford.avatarcharacterdatabase.repo.character.CharacterRepoImpl
+import graeme.hosford.avatarcharacterdatabase.repo.character.detail.CharacterDetailRepo
+import graeme.hosford.avatarcharacterdatabase.repo.character.detail.CharacterDetailRepoImpl
+import graeme.hosford.avatarcharacterdatabase.repo.character.list.CharacterListRepo
+import graeme.hosford.avatarcharacterdatabase.repo.character.list.CharacterListRepoImpl
 import javax.inject.Singleton
 
 @Module
@@ -14,6 +16,10 @@ abstract class RepositoryBindingModule {
 
     @Binds
     @Singleton
-    abstract fun bindCharacterRepository(impl: CharacterRepoImpl): CharacterRepo
+    abstract fun bindCharacterListRepo(impl: CharacterListRepoImpl): CharacterListRepo
+
+    @Binds
+    @Singleton
+    abstract fun bindCharacterDetailRepo(impl: CharacterDetailRepoImpl): CharacterDetailRepo
 
 }

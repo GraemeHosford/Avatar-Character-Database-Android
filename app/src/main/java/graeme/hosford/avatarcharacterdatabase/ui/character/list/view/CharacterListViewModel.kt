@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import graeme.hosford.avatarcharacterdatabase.entity.CharacterEntity
-import graeme.hosford.avatarcharacterdatabase.repo.character.CharacterRepo
+import graeme.hosford.avatarcharacterdatabase.repo.character.list.CharacterListRepo
 import graeme.hosford.avatarcharacterdatabase.ui.character.list.model.CharacterListItemUiModel
 import graeme.hosford.avatarcharacterdatabase.ui.character.list.model.CharacterListItemUiModelProcessor
 import graeme.hosford.avatarcharacterdatabase.ui.common.view.viewmodel.BaseViewModel
@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class CharacterListViewModel @ViewModelInject constructor(
-    private val characterRepo: CharacterRepo,
+    private val repo: CharacterListRepo,
     private val characterListItemUiModelProcessor: CharacterListItemUiModelProcessor
 ) : BaseViewModel<List<CharacterEntity>>() {
 
@@ -23,7 +23,7 @@ class CharacterListViewModel @ViewModelInject constructor(
 
     fun getCharacterList() {
         viewModelScope.launch {
-            characterRepo.getCharacterList().collect {
+            repo.getCharacterList().collect {
                 handleRepoStateResult(it)
             }
         }

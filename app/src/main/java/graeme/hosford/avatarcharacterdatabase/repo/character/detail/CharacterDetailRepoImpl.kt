@@ -5,14 +5,16 @@ import graeme.hosford.avatarcharacterdatabase.entity.CharacterEntity
 import graeme.hosford.avatarcharacterdatabase.network.character.AvatarCharacterRetrofitService
 import graeme.hosford.avatarcharacterdatabase.repo.common.BaseRepo
 import graeme.hosford.avatarcharacterdatabase.repo.common.RepoState
-import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class CharacterDetailRepoImpl @Inject constructor(
-    private val avatarRetrofitService: AvatarCharacterRetrofitService,
-    private val characterDao: CharacterDao,
+    service: AvatarCharacterRetrofitService,
+    dao: CharacterDao,
     private val singleCharacterProcessor: SingleCharacterResponseProcessor
-) : BaseRepo(), CharacterDetailRepo {
+) : BaseRepo<AvatarCharacterRetrofitService, CharacterDao, CharacterEntity>(
+    service,
+    dao
+), CharacterDetailRepo {
 
     /*
     * The API gives back different responses for characters depending on whether or not a
@@ -31,35 +33,28 @@ class CharacterDetailRepoImpl @Inject constructor(
     * the character detail after that will not have this issue but the network request will
     * still be made regardless.
     * */
-    override suspend fun getSingleCharacter(id: Long, networkId: String) =
-        flow<RepoState<CharacterEntity>> {
-            emit(RepoState.loading())
+    override suspend fun getSingleCharacter(id: Long, networkId: String) = fetchData {
+        emit(RepoState.completed(dao.getCharacterById(id)))
+        val response = service.getCharacterById(networkId)
+        val entity = singleCharacterProcessor.process(response)
+        dao.updateCharacterByNetworkId(
+            networkId,
+            entity.allies,
+            entity.enemies,
+            entity.gender,
+            entity.eyeColour,
+            entity.hairColour,
+            entity.skinColour,
+            entity.weapon,
+            entity.loves,
+            entity.profession,
+            entity.position,
+            entity.predecessor,
+            entity.affiliation,
+            entity.first,
+            entity.voicedBy
+        )
 
-            try {
-                emit(RepoState.completed(characterDao.getCharacterById(id)))
-                val response = avatarRetrofitService.getCharacterById(networkId)
-                val entity = singleCharacterProcessor.process(response)
-                characterDao.updateCharacterByNetworkId(
-                    networkId,
-                    entity.allies,
-                    entity.enemies,
-                    entity.gender,
-                    entity.eyeColour,
-                    entity.hairColour,
-                    entity.skinColour,
-                    entity.weapon,
-                    entity.loves,
-                    entity.profession,
-                    entity.position,
-                    entity.predecessor,
-                    entity.affiliation,
-                    entity.first,
-                    entity.voicedBy
-                )
-
-                emit(RepoState.completed(characterDao.getCharacterById(id)))
-            } catch (e: Exception) {
-                emit(RepoState.error())
-            }
-        }
+        emit(RepoState.completed(dao.getCharacterById(id)))
+    }
 }

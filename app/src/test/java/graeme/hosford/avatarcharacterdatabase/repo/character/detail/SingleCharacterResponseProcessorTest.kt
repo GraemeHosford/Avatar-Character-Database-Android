@@ -1,7 +1,8 @@
-package graeme.hosford.avatarcharacterdatabase.repo.character
+package graeme.hosford.avatarcharacterdatabase.repo.character.detail
 
 import graeme.hosford.avatarcharacterdatabase.entity.CharacterEntity
 import graeme.hosford.avatarcharacterdatabase.network.character.CharacterResponse
+import graeme.hosford.avatarcharacterdatabase.repo.character.common.CharacterResponseConverter
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.RelaxedMockK
@@ -11,9 +12,9 @@ import org.junit.Assert.assertThat
 import org.junit.Before
 import org.junit.Test
 
-class CharacterListResponseProcessorTest {
+class SingleCharacterResponseProcessorTest {
 
-    private lateinit var processor: CharacterListResponseProcessor
+    private lateinit var processor: SingleCharacterResponseProcessor
 
     @RelaxedMockK
     private lateinit var converter: CharacterResponseConverter
@@ -22,22 +23,22 @@ class CharacterListResponseProcessorTest {
     fun setup() {
         MockKAnnotations.init(this)
 
-        processor = CharacterListResponseProcessor(converter)
+        processor =
+            SingleCharacterResponseProcessor(
+                converter
+            )
     }
 
     @Test
-    fun process_correctlyConvertsResponses_toEntities() = runBlocking {
+    fun process_correctlyConvertsResponse_toEntity() = runBlocking {
         val response = getResponse()
-        val responseList = listOf(response)
-
         val expectedEntity = getCharacterEntity(0L, characterId = "TestId", name = "Aang")
-        val expectedEntityList = listOf(expectedEntity)
 
         every { converter.toEntity(response) } returns expectedEntity
 
-        val entities = processor.process(responseList)
+        val entity = processor.process(response)
 
-        assertThat(entities, equalTo(expectedEntityList))
+        assertThat(entity, equalTo(expectedEntity))
     }
 
     private fun getResponse(
@@ -102,5 +103,4 @@ class CharacterListResponseProcessorTest {
         first,
         voicedBy
     )
-
 }

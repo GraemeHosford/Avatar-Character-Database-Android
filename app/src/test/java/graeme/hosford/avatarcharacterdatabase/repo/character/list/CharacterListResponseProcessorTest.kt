@@ -1,7 +1,8 @@
-package graeme.hosford.avatarcharacterdatabase.repo.character
+package graeme.hosford.avatarcharacterdatabase.repo.character.list
 
 import graeme.hosford.avatarcharacterdatabase.entity.CharacterEntity
 import graeme.hosford.avatarcharacterdatabase.network.character.CharacterResponse
+import graeme.hosford.avatarcharacterdatabase.repo.character.common.CharacterResponseConverter
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.RelaxedMockK
@@ -11,9 +12,9 @@ import org.junit.Assert.assertThat
 import org.junit.Before
 import org.junit.Test
 
-class SingleCharacterResponseProcessorTest {
+class CharacterListResponseProcessorTest {
 
-    private lateinit var processor: SingleCharacterResponseProcessor
+    private lateinit var processor: CharacterListResponseProcessor
 
     @RelaxedMockK
     private lateinit var converter: CharacterResponseConverter
@@ -22,19 +23,25 @@ class SingleCharacterResponseProcessorTest {
     fun setup() {
         MockKAnnotations.init(this)
 
-        processor = SingleCharacterResponseProcessor(converter)
+        processor =
+            CharacterListResponseProcessor(
+                converter
+            )
     }
 
     @Test
-    fun process_correctlyConvertsResponse_toEntity() = runBlocking {
+    fun process_correctlyConvertsResponses_toEntities() = runBlocking {
         val response = getResponse()
+        val responseList = listOf(response)
+
         val expectedEntity = getCharacterEntity(0L, characterId = "TestId", name = "Aang")
+        val expectedEntityList = listOf(expectedEntity)
 
         every { converter.toEntity(response) } returns expectedEntity
 
-        val entity = processor.process(response)
+        val entities = processor.process(responseList)
 
-        assertThat(entity, equalTo(expectedEntity))
+        assertThat(entities, equalTo(expectedEntityList))
     }
 
     private fun getResponse(
@@ -99,4 +106,5 @@ class SingleCharacterResponseProcessorTest {
         first,
         voicedBy
     )
+
 }

@@ -1,4 +1,4 @@
-package graeme.hosford.avatarcharacterdatabase.repo.character
+package graeme.hosford.avatarcharacterdatabase.repo.character.detail
 
 import graeme.hosford.avatarcharacterdatabase.database.character.CharacterDao
 import graeme.hosford.avatarcharacterdatabase.entity.CharacterEntity
@@ -17,9 +17,9 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 
-class CharacterRepoImplTest {
+class CharacterDetailRepoImplTest {
 
-    private lateinit var repo: CharacterRepoImpl
+    private lateinit var repo: CharacterDetailRepoImpl
 
     @RelaxedMockK
     private lateinit var service: AvatarCharacterRetrofitService
@@ -28,79 +28,13 @@ class CharacterRepoImplTest {
     private lateinit var dao: CharacterDao
 
     @RelaxedMockK
-    private lateinit var characterListResponseProcessor: CharacterListResponseProcessor
-
-    @RelaxedMockK
-    private lateinit var singleCharacterResponseProcessor: SingleCharacterResponseProcessor
+    private lateinit var processor: SingleCharacterResponseProcessor
 
     @Before
     fun setup() {
         MockKAnnotations.init(this)
 
-        repo = CharacterRepoImpl(
-            service,
-            dao,
-            characterListResponseProcessor,
-            singleCharacterResponseProcessor
-        )
-    }
-
-    @Test
-    fun getCharacterList_returnsDatabaseValues_whenDatabase_isNotEmpty() = runBlocking {
-        val expectedEntities = listOf(
-            getCharacterEntity(1L, name = "Aang")
-        )
-
-        coEvery { dao.getAllCharacters() } returns expectedEntities
-
-        val emits = arrayListOf<RepoState<List<CharacterEntity>>>()
-        repo.getCharacterList().toList(emits)
-
-        assertTrue(emits[0] is RepoState.Loading)
-        coVerify(exactly = 0) { service.getAllCharacters(AvatarCharacterRetrofitService.CHARACTERS_PER_PAGE) }
-
-        assertThat((emits[1] as RepoState.Completed).data, equalTo(expectedEntities))
-    }
-
-    @Test(expected = Exception::class)
-    fun getCharacterList_callsNetwork_andSavesToDatabase_whenDatabase_isEmpty() = runBlocking {
-        coEvery { dao.getAllCharacters() } returns emptyList()
-
-        val responses = listOf(
-            getResponse(characterName = "Sokka")
-        )
-
-        val expectedEntities = listOf(
-            getCharacterEntity(1L, name = "Sokka")
-        )
-
-        coEvery { service.getAllCharacters(AvatarCharacterRetrofitService.CHARACTERS_PER_PAGE) } returns responses
-        coEvery { characterListResponseProcessor.process(responses) } returns expectedEntities
-        coEvery { dao.save(expectedEntities) } throws Exception("Just need something here")
-
-        val emits = arrayListOf<RepoState<List<CharacterEntity>>>()
-        repo.getCharacterList().toList(emits)
-
-        coVerify { dao.getAllCharacters() }
-        coVerify { service.getAllCharacters(AvatarCharacterRetrofitService.CHARACTERS_PER_PAGE) }
-        coVerify { characterListResponseProcessor.process(responses) }
-        coVerify { dao.save(expectedEntities) }
-        coEvery { dao.getAllCharacters() } returns expectedEntities
-
-        assertTrue(emits[0] is RepoState.Loading)
-        val data = (emits[1] as RepoState.Completed).data
-        assertThat(data, equalTo(expectedEntities))
-    }
-
-    @Test
-    fun getCharacterList_emitsRepoStateError_onError() = runBlocking {
-        coEvery { dao.getAllCharacters() } throws Exception()
-
-        val emits = arrayListOf<RepoState<List<CharacterEntity>>>()
-        repo.getCharacterList().toList(emits)
-
-        assertTrue(emits[0] is RepoState.Loading)
-        assertTrue(emits[1] is RepoState.Error)
+        repo = CharacterDetailRepoImpl(service, dao, processor)
     }
 
     @Test(expected = Exception::class)
@@ -109,8 +43,6 @@ class CharacterRepoImplTest {
         coEvery { dao.getCharacterById(5L) } returns expectedDatabaseEntity
 
         val response = getResponse(
-            "TestId",
-            characterName = "Aang",
             allies = listOf("Iroh"),
             enemies = listOf("Aang")
         )
@@ -123,7 +55,7 @@ class CharacterRepoImplTest {
         )
         coEvery { service.getCharacterById("TestId") } returns response
 
-        coEvery { singleCharacterResponseProcessor.process(response) } returns processedEntity
+        coEvery { processor.process(response) } returns processedEntity
         coEvery {
             dao.updateCharacterByNetworkId(
                 "TestId", listOf("Iroh"), listOf("Aang"),
@@ -137,7 +69,7 @@ class CharacterRepoImplTest {
 
         coVerify { dao.getCharacterById(5L) }
         coVerify { service.getCharacterById("TestId") }
-        coVerify { singleCharacterResponseProcessor.process(response) }
+        coVerify { processor.process(response) }
         coVerify {
             dao.updateCharacterByNetworkId(
                 "TestId", listOf("Iroh"), listOf("Aang"), null, null,

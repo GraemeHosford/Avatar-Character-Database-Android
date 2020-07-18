@@ -1,4 +1,4 @@
-package graeme.hosford.avatarcharacterdatabase.repo.character
+package graeme.hosford.avatarcharacterdatabase.repo.character.common
 
 import graeme.hosford.avatarcharacterdatabase.entity.CharacterEntity
 import graeme.hosford.avatarcharacterdatabase.network.character.CharacterResponse
@@ -13,7 +13,8 @@ class CharacterResponseConverterTest {
 
     @Before
     fun setup() {
-        converter = CharacterResponseConverter()
+        converter =
+            CharacterResponseConverter()
     }
 
     @Test

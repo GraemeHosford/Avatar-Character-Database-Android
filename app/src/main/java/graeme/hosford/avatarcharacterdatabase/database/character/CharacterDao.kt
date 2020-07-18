@@ -6,6 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import graeme.hosford.avatarcharacterdatabase.database.Converters
 import graeme.hosford.avatarcharacterdatabase.entity.CharacterEntity
+import graeme.hosford.avatarcharacterdatabase.repo.character.list.CharacterOrderBy
 
 @Dao
 interface CharacterDao {
@@ -16,8 +17,12 @@ interface CharacterDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun save(characters: List<CharacterEntity>)
 
-    @Query("SELECT * FROM ${CharacterEntity.TABLE_NAME}")
-    suspend fun getAllCharacters(): List<CharacterEntity>
+    @Query("SELECT * FROM ${CharacterEntity.TABLE_NAME} ORDER BY :order LIMIT :limit OFFSET :offset")
+    suspend fun getAllCharacters(
+        offset: Int,
+        limit: Int,
+        @CharacterOrderBy order: String
+    ): List<CharacterEntity>
 
     @Query("SELECT * FROM ${CharacterEntity.TABLE_NAME} WHERE id = :id")
     suspend fun getCharacterById(id: Long): CharacterEntity

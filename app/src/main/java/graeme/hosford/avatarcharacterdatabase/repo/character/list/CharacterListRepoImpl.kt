@@ -29,7 +29,8 @@ class CharacterListRepoImpl @Inject constructor(
     * close to 500 there. This is a hardcoded limit right now to save on load times and data usage.
     */
     override suspend fun getCharacterList() = fetchData {
-        val characters = dao.getAllCharacters()
+        val characters =
+            dao.getAllCharacters(0, CHARACTERS_PER_PAGE, CharacterOrderBy.CHARACTER_NAME)
 
         if (characters.isNotEmpty()) {
             emit(RepoState.completed(characters))
@@ -40,7 +41,15 @@ class CharacterListRepoImpl @Inject constructor(
             dao.save(entities)
 
             /* Can't just returns the result of processing as database Ids are needed */
-            emit(RepoState.completed(dao.getAllCharacters()))
+            emit(
+                RepoState.completed(
+                    dao.getAllCharacters(
+                        0,
+                        CHARACTERS_PER_PAGE,
+                        CharacterOrderBy.CHARACTER_NAME
+                    )
+                )
+            )
         }
     }
 }

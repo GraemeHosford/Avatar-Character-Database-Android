@@ -35,7 +35,7 @@ class CharacterListRepoImpl @Inject constructor(
         if (characters.isNotEmpty()) {
             emit(RepoState.completed(characters))
         } else {
-            val responses = service.getAllCharacters(CHARACTERS_PER_PAGE)
+            val responses = service.getAllCharacters(CHARACTERS_PER_PAGE, 1)
 
             val entities = characterListProcessor.process(responses)
             dao.save(entities)

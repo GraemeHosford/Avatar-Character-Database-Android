@@ -6,10 +6,10 @@ import kotlinx.coroutines.flow.collect
 abstract class BasePaginatedRepo<Service, DAO, DataType>(
     service: Service,
     dao: DAO
-) : BaseRepo<Service, DAO, List<DataType>>(service, dao) {
+) : BaseRepo<Service, DAO, List<DataType>>(service, dao), PaginatedRepo<DataType> {
     private var page = 1
 
-    suspend fun getNextPage() = fetchData {
+    override suspend fun getNextPage() = fetchData {
         val pageSize = getPageSize()
         val offset = getOffset(page, pageSize)
         val localPage = fetchFromLocal(dao, offset, pageSize)

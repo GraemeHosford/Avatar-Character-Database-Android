@@ -1,16 +1,20 @@
 package graeme.hosford.avatarcharacterdatabase.ui.common.view.viewmodel
 
 import androidx.annotation.CallSuper
+import androidx.lifecycle.viewModelScope
 import graeme.hosford.avatarcharacterdatabase.repo.common.PaginatedRepo
 import graeme.hosford.avatarcharacterdatabase.repo.common.RepoState
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 abstract class BasePaginatedViewModel<Result, Repo : PaginatedRepo<Result>>(
     private val repo: Repo
 ) : BaseViewModel<Result>() {
-    suspend fun requestNextPage() {
-        repo.getNextPage().collect {
-            handlePaginatedRepoStateResult(it)
+    fun requestNextPage() {
+        viewModelScope.launch {
+            repo.getNextPage().collect {
+                handlePaginatedRepoStateResult(it)
+            }
         }
     }
 

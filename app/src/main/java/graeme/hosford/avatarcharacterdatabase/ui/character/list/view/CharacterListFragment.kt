@@ -9,11 +9,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import graeme.hosford.avatarcharacterdatabase.ui.character.list.model.CharacterListItemUiModel
 import graeme.hosford.avatarcharacterdatabase.ui.character.list.view.adapter.CharacterListRecyclerViewAdapter
 import graeme.hosford.avatarcharacterdatabase.ui.character.list.view.adapter.CharacterListViewHolder
-import graeme.hosford.avatarcharacterdatabase.ui.common.view.fragment.BaseRecyclerViewFragment
+import graeme.hosford.avatarcharacterdatabase.ui.common.view.fragment.BasePaginatedRecyclerViewFragment
 
 @AndroidEntryPoint
 class CharacterListFragment :
-    BaseRecyclerViewFragment<
+    BasePaginatedRecyclerViewFragment<
             CharacterListItemUiModel,
             CharacterListViewHolder,
             CharacterListRecyclerViewAdapter,
@@ -26,7 +26,7 @@ class CharacterListFragment :
         viewmodel.getCharacterList()
     }
 
-    override fun registerViewModel() = characterListViewModel
+    override fun registerPaginatedViewModel() = characterListViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

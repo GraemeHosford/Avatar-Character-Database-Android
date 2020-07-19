@@ -30,6 +30,7 @@ abstract class BaseRecyclerViewFragment<
 
     private lateinit var binding: FragmentBaseRecyclerViewLayoutBinding
     protected lateinit var recyclerview: RecyclerView
+    protected lateinit var recyclerViewLayoutManager: LinearLayoutManager
     protected lateinit var recyclerViewAdapter: Adapter
 
     override fun onCreateView(
@@ -62,7 +63,7 @@ abstract class BaseRecyclerViewFragment<
 
         recyclerview = binding.recyclerView
 
-        val recyclerViewLayoutManager = LinearLayoutManager(context)
+        recyclerViewLayoutManager = LinearLayoutManager(context)
         recyclerViewAdapter = recyclerViewAdapter()
 
         recyclerview.apply {

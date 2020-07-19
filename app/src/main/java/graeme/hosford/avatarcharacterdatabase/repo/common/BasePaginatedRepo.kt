@@ -10,8 +10,10 @@ abstract class BasePaginatedRepo<Service, DAO, DataType>(
     private var page = 1
 
     override suspend fun getNextPage() = fetchData {
+        val currPage = page
+        page++
         val pageSize = getPageSize()
-        val offset = getOffset(page, pageSize)
+        val offset = getOffset(currPage, pageSize)
         val localPage = fetchFromLocal(dao, offset, pageSize)
         localPage.collect {
             when (it) {
@@ -22,7 +24,7 @@ abstract class BasePaginatedRepo<Service, DAO, DataType>(
                     if (it.data.size < pageSize) {
                         fetchFromNetwork(
                             service,
-                            page,
+                            currPage,
                             pageSize,
                             offset
                         ).collect { networkPage ->
@@ -32,8 +34,6 @@ abstract class BasePaginatedRepo<Service, DAO, DataType>(
                 }
             }
         }
-
-        page++
     }
 
     abstract fun getPageSize(): Int

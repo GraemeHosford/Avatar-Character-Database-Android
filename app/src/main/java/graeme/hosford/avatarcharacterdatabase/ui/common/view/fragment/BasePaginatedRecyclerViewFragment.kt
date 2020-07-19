@@ -21,15 +21,11 @@ abstract class BasePaginatedRecyclerViewFragment<UiModel : BaseUiModel, ViewHold
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         scrollListener = object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
 
-                val visibleItems = recyclerViewLayoutManager.childCount
-                val totalItems = recyclerViewLayoutManager.itemCount
-                val firstVisibleItemPos = recyclerViewLayoutManager.findFirstVisibleItemPosition()
-
-                if (firstVisibleItemPos + visibleItems >= totalItems) {
-                    registerPaginatedViewModel().requestNextPage()
+                if (!recyclerView.canScrollVertically(1)) {
+                    viewmodel.requestNextPage()
                 }
             }
         }

@@ -3,53 +3,58 @@ package graeme.hosford.avatarcharacterdatabase.repo.character.list
 import graeme.hosford.avatarcharacterdatabase.database.character.CharacterDao
 import graeme.hosford.avatarcharacterdatabase.entity.CharacterEntity
 import graeme.hosford.avatarcharacterdatabase.network.character.AvatarCharacterRetrofitService
-import graeme.hosford.avatarcharacterdatabase.repo.common.BaseRepo
+import graeme.hosford.avatarcharacterdatabase.repo.common.BasePaginatedRepo
 import graeme.hosford.avatarcharacterdatabase.repo.common.RepoState
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class CharacterListRepoImpl @Inject constructor(
     service: AvatarCharacterRetrofitService,
     dao: CharacterDao,
     private val characterListProcessor: CharacterListResponseProcessor
-) : BaseRepo<AvatarCharacterRetrofitService, CharacterDao, List<CharacterEntity>>(
+) : BasePaginatedRepo<AvatarCharacterRetrofitService, CharacterDao, CharacterEntity>(
     service,
     dao
 ), CharacterListRepo {
 
-    /*
-    * The logic here avoids the network call when the database has values because the data on the
-    * server-side is not changing, and will not due to the show being long finished.
-    *
-    * This allows us to avoid the network call in some instances once the database is populated.
-    * This logic would not work if the server-side data was changing and would need to instead match
-    * the Flow logic in #getSingleCharacter below.
-    *
-    * Despite this the logic here may need to change in future anyway if I implement pagination.
-    * Right now the network call pulls the first 100 characters from the server when there are
-    * close to 500 there. This is a hardcoded limit right now to save on load times and data usage.
-    */
-    override suspend fun getCharacterList() = fetchData {
-        val characters =
-            dao.getAllCharacters(0, CHARACTERS_PER_PAGE, CharacterOrderBy.CHARACTER_NAME)
+    override fun getPageSize() = CHARACTERS_PER_PAGE
 
-        if (characters.isNotEmpty()) {
-            emit(RepoState.completed(characters))
-        } else {
-            val responses = service.getAllCharacters(CHARACTERS_PER_PAGE, 1)
-
-            val entities = characterListProcessor.process(responses)
-            dao.save(entities)
-
-            /* Can't just returns the result of processing as database Ids are needed */
-            emit(
-                RepoState.completed(
-                    dao.getAllCharacters(
-                        0,
-                        CHARACTERS_PER_PAGE,
-                        CharacterOrderBy.CHARACTER_NAME
-                    )
+    override suspend fun fetchFromLocal(
+        dao: CharacterDao,
+        offset: Int,
+        limit: Int
+    ) = flow<RepoState<List<CharacterEntity>>> {
+        emit(
+            RepoState.completed(
+                dao.getAllCharacters(
+                    offset,
+                    limit,
+                    CharacterOrderBy.CHARACTER_NAME
                 )
             )
-        }
+        )
+    }
+
+    override suspend fun fetchFromNetwork(
+        service: AvatarCharacterRetrofitService,
+        page: Int,
+        pageSize: Int,
+        dbOffset: Int
+    ) = flow<RepoState<List<CharacterEntity>>> {
+        val responses = service.getAllCharacters(pageSize, page)
+
+        val entities = characterListProcessor.process(responses)
+        dao.save(entities)
+
+        /* Can't just returns the result of processing as database Ids are needed */
+        emit(
+            RepoState.completed(
+                dao.getAllCharacters(
+                    dbOffset,
+                    pageSize,
+                    CharacterOrderBy.CHARACTER_NAME
+                )
+            )
+        )
     }
 }

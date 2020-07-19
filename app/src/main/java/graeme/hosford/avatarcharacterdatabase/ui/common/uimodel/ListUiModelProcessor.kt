@@ -11,7 +11,7 @@ abstract class ListUiModelProcessor<Entity, UiModel : BaseUiModel>(
     private val comparator: Comparator<UiModel>
 ) {
 
-    suspend fun process(entities: List<Entity>): List<UiModel> {
+    open suspend fun process(entities: List<Entity>): List<UiModel> {
         val models = arrayListOf<UiModel>()
         return entities.asFlow()
             .map {

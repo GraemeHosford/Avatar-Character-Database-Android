@@ -13,7 +13,10 @@ abstract class BasePaginatedRepo<Service, DAO, DataType>(
         val pageSize = getPageSize()
         val offset = getOffset(page, pageSize)
         val localPage = fetchFromLocal(dao, offset, pageSize)
-        emit(RepoState.completed(localPage))
+
+        if (localPage.isNotEmpty()) {
+            emit(RepoState.completed(localPage))
+        }
 
         if (localPage.size < pageSize) {
             val networkPage = fetchFromNetwork(service, page, pageSize)

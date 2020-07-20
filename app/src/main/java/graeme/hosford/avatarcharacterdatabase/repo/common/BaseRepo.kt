@@ -7,7 +7,7 @@ abstract class BaseRepo<Service, DAO, DataType>(
     protected val service: Service,
     protected val dao: DAO
 ) {
-    protected suspend fun fetchData(block: suspend FlowCollector<RepoState<DataType>>.() -> Unit) =
+    protected open suspend fun fetchData(block: suspend FlowCollector<RepoState<DataType>>.() -> Unit) =
         flow<RepoState<DataType>> {
             emit(RepoState.loading())
 

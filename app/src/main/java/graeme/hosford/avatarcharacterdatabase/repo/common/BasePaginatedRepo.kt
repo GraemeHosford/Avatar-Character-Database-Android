@@ -1,7 +1,7 @@
 package graeme.hosford.avatarcharacterdatabase.repo.common
 
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.FlowCollector
+import kotlinx.coroutines.flow.flow
 
 abstract class BasePaginatedRepo<Service, DAO, DataType>(
     service: Service,
@@ -10,46 +10,50 @@ abstract class BasePaginatedRepo<Service, DAO, DataType>(
     private var page = 1
 
     override suspend fun getNextPage() = fetchData {
-        val currPage = page
-        page++
         val pageSize = getPageSize()
-        val offset = getOffset(currPage, pageSize)
+        val offset = getOffset(page, pageSize)
         val localPage = fetchFromLocal(dao, offset, pageSize)
-        localPage.collect {
-            when (it) {
-                is RepoState.Error -> emit(it)
-                is RepoState.Loading -> emit(it)
-                is RepoState.Completed -> {
-                    emit(it)
-                    if (it.data.size < pageSize) {
-                        fetchFromNetwork(
-                            service,
-                            currPage,
-                            pageSize,
-                            offset
-                        ).collect { networkPage ->
-                            emit(networkPage)
-                        }
-                    }
-                }
-            }
+        emit(RepoState.completed(localPage))
+
+        if (localPage.size < pageSize) {
+            val networkPage = fetchFromNetwork(service, page, pageSize)
+            saveToLocal(dao, networkPage)
+            emit(RepoState.completed(fetchFromLocal(dao, offset, pageSize)))
         }
+
+        page++
     }
 
-    abstract fun getPageSize(): Int
+    override suspend fun fetchData(block: suspend FlowCollector<RepoState<List<DataType>>>.() -> Unit) =
+        flow<RepoState<List<DataType>>> {
+            if (page == 1) {
+                /* Only emit loading state on getting first page to avoid screen
+                flicker on getting new pages */
+                emit(RepoState.loading())
+            }
 
-    abstract suspend fun fetchFromLocal(
+            try {
+                block()
+            } catch (e: Exception) {
+                emit(RepoState.error())
+            }
+        }
+
+    protected abstract fun getPageSize(): Int
+
+    protected abstract suspend fun fetchFromLocal(
         dao: DAO,
         offset: Int,
         limit: Int
-    ): Flow<RepoState<List<DataType>>>
+    ): List<DataType>
 
-    abstract suspend fun fetchFromNetwork(
+    protected abstract suspend fun saveToLocal(dao: DAO, entities: List<DataType>)
+
+    protected abstract suspend fun fetchFromNetwork(
         service: Service,
         page: Int,
-        pageSize: Int,
-        dbOffset: Int
-    ): Flow<RepoState<List<DataType>>>
+        pageSize: Int
+    ): List<DataType>
 
     private fun getOffset(page: Int, pageSize: Int) = (page - 1) * pageSize
 }

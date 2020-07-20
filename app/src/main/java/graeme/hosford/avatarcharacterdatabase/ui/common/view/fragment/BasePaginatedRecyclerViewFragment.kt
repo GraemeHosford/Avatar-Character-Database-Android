@@ -23,16 +23,16 @@ abstract class BasePaginatedRecyclerViewFragment<UiModel : BaseUiModel, ViewHold
         scrollListener = object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
+                if (loading) {
+                    return
+                }
 
                 if (!recyclerView.canScrollVertically(1)) {
                     viewmodel.requestNextPage()
                 }
             }
         }
-    }
 
-    override fun onResume() {
-        super.onResume()
         recyclerview.addOnScrollListener(scrollListener)
     }
 

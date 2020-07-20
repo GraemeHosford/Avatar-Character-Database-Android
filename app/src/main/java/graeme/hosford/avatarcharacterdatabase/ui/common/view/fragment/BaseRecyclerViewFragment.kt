@@ -33,6 +33,8 @@ abstract class BaseRecyclerViewFragment<
     protected lateinit var recyclerViewLayoutManager: LinearLayoutManager
     protected lateinit var recyclerViewAdapter: Adapter
 
+    protected var loading = false
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -82,16 +84,19 @@ abstract class BaseRecyclerViewFragment<
                     binding.recyclerView.visibility = View.GONE
                     binding.defaultLoadingLayout.root.visibility = View.GONE
                     binding.defaultErrorLayout.root.visibility = View.VISIBLE
+                    loading = false
                 }
                 ViewModelResult.LOADING -> {
                     binding.defaultLoadingLayout.root.visibility = View.VISIBLE
                     binding.recyclerView.visibility = View.GONE
                     binding.defaultErrorLayout.root.visibility = View.GONE
+                    loading = true
                 }
                 ViewModelResult.COMPLETED -> {
                     binding.recyclerView.visibility = View.VISIBLE
                     binding.defaultErrorLayout.root.visibility = View.GONE
                     binding.defaultLoadingLayout.root.visibility = View.GONE
+                    loading = false
                 }
                 /* Should never get to this null branch */
                 null -> throw IllegalStateException("ViewModelResult is null")

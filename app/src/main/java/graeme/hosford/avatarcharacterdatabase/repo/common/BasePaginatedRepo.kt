@@ -11,7 +11,7 @@ abstract class BasePaginatedRepo<Service, DAO, DataType>(
 
     override suspend fun getNextPage() = fetchData {
         val pageSize = getPageSize()
-        val offset = getOffset(page, pageSize)
+        val offset = PagingUtils.getOffset(page, pageSize)
         val localPage = fetchFromLocal(dao, offset, pageSize)
 
         if (localPage.isNotEmpty()) {
@@ -57,6 +57,4 @@ abstract class BasePaginatedRepo<Service, DAO, DataType>(
         page: Int,
         pageSize: Int
     ): List<DataType>
-
-    private fun getOffset(page: Int, pageSize: Int) = (page - 1) * pageSize
 }

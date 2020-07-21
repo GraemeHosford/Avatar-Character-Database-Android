@@ -35,7 +35,7 @@ class CharacterListFragment :
         })
     }
 
-    override fun recyclerViewAdapter(): CharacterListRecyclerViewAdapter =
+    override fun paginatedRecyclerViewAdapter() =
         CharacterListRecyclerViewAdapter { id, networkId, characterName ->
             findNavController().navigate(
                 CharacterListFragmentDirections.actionCharacterListFragmentToCharacterDetailFragment(

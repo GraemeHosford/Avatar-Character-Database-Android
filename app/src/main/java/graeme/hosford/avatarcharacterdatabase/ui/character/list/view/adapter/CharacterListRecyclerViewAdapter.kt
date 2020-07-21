@@ -6,13 +6,13 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import graeme.hosford.avatarcharacterdatabase.databinding.CharacterListItemLayoutBinding
 import graeme.hosford.avatarcharacterdatabase.ui.character.list.model.CharacterListItemUiModel
-import graeme.hosford.avatarcharacterdatabase.ui.common.view.recyclerview.BaseRecyclerViewAdapter
+import graeme.hosford.avatarcharacterdatabase.ui.common.view.recyclerview.BasePaginatedRecyclerViewAdapter
 import graeme.hosford.avatarcharacterdatabase.ui.common.view.recyclerview.BaseViewHolder
 
 typealias CharacterItemOnClick = (Long, String, String) -> Unit
 
 class CharacterListRecyclerViewAdapter(private val onItemClick: CharacterItemOnClick) :
-    BaseRecyclerViewAdapter<CharacterListItemUiModel, CharacterListViewHolder>() {
+    BasePaginatedRecyclerViewAdapter<CharacterListItemUiModel, CharacterListViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterListViewHolder {
         return CharacterListViewHolder(
             CharacterListItemLayoutBinding.inflate(

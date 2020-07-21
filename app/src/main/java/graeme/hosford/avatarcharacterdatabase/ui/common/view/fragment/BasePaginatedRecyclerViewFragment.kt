@@ -4,12 +4,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import graeme.hosford.avatarcharacterdatabase.ui.common.uimodel.BaseUiModel
-import graeme.hosford.avatarcharacterdatabase.ui.common.view.recyclerview.BaseRecyclerViewAdapter
+import graeme.hosford.avatarcharacterdatabase.ui.common.view.recyclerview.BasePaginatedRecyclerViewAdapter
 import graeme.hosford.avatarcharacterdatabase.ui.common.view.recyclerview.BaseViewHolder
 import graeme.hosford.avatarcharacterdatabase.ui.common.view.viewmodel.BasePaginatedViewModel
 
 abstract class BasePaginatedRecyclerViewFragment<UiModel : BaseUiModel, ViewHolder : BaseViewHolder<UiModel>,
-        Adapter : BaseRecyclerViewAdapter<UiModel, ViewHolder>, VM : BasePaginatedViewModel<*, *>>
+        Adapter : BasePaginatedRecyclerViewAdapter<UiModel, ViewHolder>, VM : BasePaginatedViewModel<*, *>>
     : BaseRecyclerViewFragment<UiModel, ViewHolder, Adapter, VM>() {
 
     private lateinit var scrollListener: RecyclerView.OnScrollListener
@@ -17,6 +17,10 @@ abstract class BasePaginatedRecyclerViewFragment<UiModel : BaseUiModel, ViewHold
     abstract fun registerPaginatedViewModel(): VM
 
     override fun registerViewModel() = registerPaginatedViewModel()
+
+    override fun recyclerViewAdapter() = paginatedRecyclerViewAdapter()
+
+    protected abstract fun paginatedRecyclerViewAdapter(): Adapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

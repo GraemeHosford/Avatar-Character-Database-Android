@@ -2,8 +2,8 @@ package graeme.hosford.avatarcharacterdatabase.repo.character.detail
 
 import graeme.hosford.avatarcharacterdatabase.database.character.CharacterDao
 import graeme.hosford.avatarcharacterdatabase.entity.layer.CharacterEntity
-import graeme.hosford.avatarcharacterdatabase.network.character.AvatarCharacterRetrofitService
-import graeme.hosford.avatarcharacterdatabase.network.character.CharacterResponse
+import graeme.hosford.avatarcharacterdatabase.network.layer.character.AvatarCharacterRetrofitService
+import graeme.hosford.avatarcharacterdatabase.network.layer.character.CharacterResponse
 import graeme.hosford.avatarcharacterdatabase.repo.common.RepoState
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery

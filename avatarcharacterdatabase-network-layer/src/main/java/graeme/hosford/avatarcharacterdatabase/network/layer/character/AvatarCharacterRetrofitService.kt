@@ -1,4 +1,4 @@
-package graeme.hosford.avatarcharacterdatabase.network.character
+package graeme.hosford.avatarcharacterdatabase.network.layer.character
 
 import retrofit2.http.GET
 import retrofit2.http.Path

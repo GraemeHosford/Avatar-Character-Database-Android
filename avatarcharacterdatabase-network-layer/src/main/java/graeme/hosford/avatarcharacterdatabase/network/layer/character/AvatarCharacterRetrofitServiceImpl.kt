@@ -1,6 +1,6 @@
-package graeme.hosford.avatarcharacterdatabase.network.character
+package graeme.hosford.avatarcharacterdatabase.network.layer.character
 
-import graeme.hosford.avatarcharacterdatabase.network.common.BaseRetrofitService
+import graeme.hosford.avatarcharacterdatabase.network.layer.common.BaseRetrofitService
 import javax.inject.Inject
 
 class AvatarCharacterRetrofitServiceImpl @Inject constructor() :

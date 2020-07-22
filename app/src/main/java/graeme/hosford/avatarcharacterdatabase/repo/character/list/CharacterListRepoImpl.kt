@@ -3,7 +3,7 @@ package graeme.hosford.avatarcharacterdatabase.repo.character.list
 import androidx.annotation.VisibleForTesting
 import graeme.hosford.avatarcharacterdatabase.database.character.CharacterDao
 import graeme.hosford.avatarcharacterdatabase.entity.layer.CharacterEntity
-import graeme.hosford.avatarcharacterdatabase.network.character.AvatarCharacterRetrofitService
+import graeme.hosford.avatarcharacterdatabase.network.layer.character.AvatarCharacterRetrofitService
 import graeme.hosford.avatarcharacterdatabase.repo.common.pagination.BasePaginatedRepo
 import javax.inject.Inject
 

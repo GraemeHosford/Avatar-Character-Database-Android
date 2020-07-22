@@ -1,7 +1,7 @@
 package graeme.hosford.avatarcharacterdatabase.repo.character.detail
 
 import graeme.hosford.avatarcharacterdatabase.entity.layer.CharacterEntity
-import graeme.hosford.avatarcharacterdatabase.network.character.CharacterResponse
+import graeme.hosford.avatarcharacterdatabase.network.layer.character.CharacterResponse
 import graeme.hosford.avatarcharacterdatabase.repo.character.common.CharacterResponseConverter
 import io.mockk.MockKAnnotations
 import io.mockk.every

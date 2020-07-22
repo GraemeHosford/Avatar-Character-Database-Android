@@ -1,4 +1,4 @@
-package graeme.hosford.avatarcharacterdatabase.network.character
+package graeme.hosford.avatarcharacterdatabase.network.layer.character
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

@@ -1,11 +1,11 @@
-package graeme.hosford.avatarcharacterdatabase.network.injection
+package graeme.hosford.avatarcharacterdatabase.network.layer.injection
 
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
-import graeme.hosford.avatarcharacterdatabase.network.character.AvatarCharacterRetrofitService
-import graeme.hosford.avatarcharacterdatabase.network.character.AvatarCharacterRetrofitServiceImpl
+import graeme.hosford.avatarcharacterdatabase.network.layer.character.AvatarCharacterRetrofitService
+import graeme.hosford.avatarcharacterdatabase.network.layer.character.AvatarCharacterRetrofitServiceImpl
 import javax.inject.Singleton
 
 @Module

@@ -1,4 +1,4 @@
-package graeme.hosford.avatarcharacterdatabase.network.common
+package graeme.hosford.avatarcharacterdatabase.network.layer.common
 
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory

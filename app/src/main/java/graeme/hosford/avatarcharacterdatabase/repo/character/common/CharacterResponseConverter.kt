@@ -1,7 +1,7 @@
 package graeme.hosford.avatarcharacterdatabase.repo.character.common
 
 import graeme.hosford.avatarcharacterdatabase.entity.layer.CharacterEntity
-import graeme.hosford.avatarcharacterdatabase.network.character.CharacterResponse
+import graeme.hosford.avatarcharacterdatabase.network.layer.character.CharacterResponse
 import graeme.hosford.avatarcharacterdatabase.repo.common.ResponseConverter
 import javax.inject.Inject
 

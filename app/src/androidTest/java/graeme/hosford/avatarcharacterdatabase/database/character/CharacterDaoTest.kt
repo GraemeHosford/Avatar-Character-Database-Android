@@ -4,6 +4,7 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import graeme.hosford.avatarcharacterdatabase.database.AvatarCharacterDatabase
 import graeme.hosford.avatarcharacterdatabase.entity.CharacterEntity
+import graeme.hosford.avatarcharacterdatabase.repo.character.list.CharacterOrderBy
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.After
@@ -33,7 +34,7 @@ class CharacterDaoTest {
     }
 
     @Test
-    fun getAllCharacters_returnsEntireTableContents() = runBlocking {
+    fun getAllCharacters_returnsPagesOfTableContents() = runBlocking {
         val entities = listOf(
             getCharacterEntity(1L, name = "Aang", gender = "Male", position = "Avatar"),
             getCharacterEntity(2L, name = "Iroh", gender = "Male", voicedBy = "Mako")
@@ -41,9 +42,26 @@ class CharacterDaoTest {
 
         dao.save(entities)
 
-        val savedEntities = dao.getAllCharacters()
+        val savedEntities = dao.getAllCharacters(0, 5, CharacterOrderBy.CHARACTER_NAME)
 
         assertThat(entities, equalTo(savedEntities))
+    }
+
+    @Test
+    fun getAllCharacters_returnsSubsetOfContents_whenLimitAndOffsetApplied() = runBlocking {
+        val entities = listOf(
+            getCharacterEntity(1L, name = "Aang", gender = "Male", position = "Avatar"),
+            getCharacterEntity(2L, name = "Iroh", gender = "Male", voicedBy = "Mako")
+        )
+
+        dao.save(entities)
+
+        val expectedResult =
+            listOf(getCharacterEntity(2L, name = "Iroh", gender = "Male", voicedBy = "Mako"))
+
+        val savedEntities = dao.getAllCharacters(1, 5, CharacterOrderBy.CHARACTER_NAME)
+
+        assertThat(expectedResult, equalTo(savedEntities))
     }
 
     @Test

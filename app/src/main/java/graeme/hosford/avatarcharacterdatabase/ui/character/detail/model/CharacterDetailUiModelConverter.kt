@@ -2,7 +2,7 @@ package graeme.hosford.avatarcharacterdatabase.ui.character.detail.model
 
 import androidx.annotation.StringRes
 import graeme.hosford.avatarcharacterdatabase.R
-import graeme.hosford.avatarcharacterdatabase.entity.CharacterEntity
+import graeme.hosford.avatarcharacterdatabase.entity.layer.CharacterEntity
 import graeme.hosford.avatarcharacterdatabase.ui.common.uimodel.UiModelConverter
 import javax.inject.Inject
 

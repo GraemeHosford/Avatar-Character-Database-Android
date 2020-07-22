@@ -5,7 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import graeme.hosford.avatarcharacterdatabase.database.Converters
-import graeme.hosford.avatarcharacterdatabase.entity.CharacterEntity
+import graeme.hosford.avatarcharacterdatabase.entity.layer.CharacterEntity
 import graeme.hosford.avatarcharacterdatabase.repo.character.list.CharacterOrderBy
 
 @Dao

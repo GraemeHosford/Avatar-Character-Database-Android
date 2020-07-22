@@ -3,7 +3,7 @@ package graeme.hosford.avatarcharacterdatabase.database.character
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import graeme.hosford.avatarcharacterdatabase.database.AvatarCharacterDatabase
-import graeme.hosford.avatarcharacterdatabase.entity.CharacterEntity
+import graeme.hosford.avatarcharacterdatabase.entity.layer.CharacterEntity
 import graeme.hosford.avatarcharacterdatabase.repo.character.list.CharacterOrderBy
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.equalTo

@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import graeme.hosford.avatarcharacterdatabase.database.AvatarCharacterDatabase.Companion.DATABASE_VERSION
 import graeme.hosford.avatarcharacterdatabase.database.character.CharacterDao
-import graeme.hosford.avatarcharacterdatabase.entity.CharacterEntity
+import graeme.hosford.avatarcharacterdatabase.entity.layer.CharacterEntity
 
 @Database(version = DATABASE_VERSION, entities = [CharacterEntity::class])
 @TypeConverters(Converters::class)

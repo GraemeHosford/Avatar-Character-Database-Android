@@ -3,7 +3,7 @@ package graeme.hosford.avatarcharacterdatabase.ui.character.list.view
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import graeme.hosford.avatarcharacterdatabase.entity.CharacterEntity
+import graeme.hosford.avatarcharacterdatabase.entity.layer.CharacterEntity
 import graeme.hosford.avatarcharacterdatabase.repo.character.list.CharacterListRepo
 import graeme.hosford.avatarcharacterdatabase.ui.character.list.model.CharacterListItemUiModel
 import graeme.hosford.avatarcharacterdatabase.ui.character.list.model.CharacterListItemUiModelProcessor

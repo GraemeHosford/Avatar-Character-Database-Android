@@ -1,2 +1,3 @@
 rootProject.name='Avatar Character Database'
 include ':app'
+include ':avatarcharacterdatabase-entity-layer'

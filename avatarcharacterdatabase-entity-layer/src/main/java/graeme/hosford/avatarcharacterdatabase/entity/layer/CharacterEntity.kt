@@ -1,8 +1,8 @@
-package graeme.hosford.avatarcharacterdatabase.entity
+package graeme.hosford.avatarcharacterdatabase.entity.layer
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import graeme.hosford.avatarcharacterdatabase.entity.CharacterEntity.Companion.TABLE_NAME
+import graeme.hosford.avatarcharacterdatabase.entity.layer.CharacterEntity.Companion.TABLE_NAME
 
 @Entity(tableName = TABLE_NAME)
 data class CharacterEntity(

@@ -1,6 +1,6 @@
 package graeme.hosford.avatarcharacterdatabase.repo.character.common
 
-import graeme.hosford.avatarcharacterdatabase.entity.CharacterEntity
+import graeme.hosford.avatarcharacterdatabase.entity.layer.CharacterEntity
 import graeme.hosford.avatarcharacterdatabase.network.character.CharacterResponse
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.Assert.assertThat

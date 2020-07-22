@@ -4,16 +4,14 @@ import graeme.hosford.avatarcharacterdatabase.database.character.CharacterDao
 import graeme.hosford.avatarcharacterdatabase.entity.CharacterEntity
 import graeme.hosford.avatarcharacterdatabase.network.character.AvatarCharacterRetrofitService
 import graeme.hosford.avatarcharacterdatabase.network.character.CharacterResponse
-import graeme.hosford.avatarcharacterdatabase.repo.common.RepoState
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.impl.annotations.RelaxedMockK
-import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.equalTo
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertThat
-import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 
@@ -42,61 +40,54 @@ class CharacterListRepoImplTest {
     }
 
     @Test
-    fun getCharacterList_returnsDatabaseValues_whenDatabase_isNotEmpty() = runBlocking {
-        val expectedEntities = listOf(
-            getCharacterEntity(1L, name = "Aang")
-        )
-
-        coEvery { dao.getAllCharacters() } returns expectedEntities
-
-        val emits = arrayListOf<RepoState<List<CharacterEntity>>>()
-        repo.getCharacterList().toList(emits)
-
-        assertTrue(emits[0] is RepoState.Loading)
-        coVerify(exactly = 0) { service.getAllCharacters(CHARACTERS_PER_PAGE) }
-
-        assertThat((emits[1] as RepoState.Completed).data, equalTo(expectedEntities))
-    }
-
-    @Test(expected = Exception::class)
-    fun getCharacterList_callsNetwork_andSavesToDatabase_whenDatabase_isEmpty() = runBlocking {
-        coEvery { dao.getAllCharacters() } returns emptyList()
-
-        val responses = listOf(
-            getResponse(characterName = "Sokka")
-        )
-
-        val expectedEntities = listOf(
-            getCharacterEntity(1L, name = "Sokka")
-        )
-
-        coEvery { service.getAllCharacters(CHARACTERS_PER_PAGE) } returns responses
-        coEvery { characterListResponseProcessor.process(responses) } returns expectedEntities
-        coEvery { dao.save(expectedEntities) } throws Exception("Just need something here")
-
-        val emits = arrayListOf<RepoState<List<CharacterEntity>>>()
-        repo.getCharacterList().toList(emits)
-
-        coVerify { dao.getAllCharacters() }
-        coVerify { service.getAllCharacters(CHARACTERS_PER_PAGE) }
-        coVerify { characterListResponseProcessor.process(responses) }
-        coVerify { dao.save(expectedEntities) }
-        coEvery { dao.getAllCharacters() } returns expectedEntities
-
-        assertTrue(emits[0] is RepoState.Loading)
-        val data = (emits[1] as RepoState.Completed).data
-        assertThat(data, equalTo(expectedEntities))
+    fun getPageSize_returnsCharactersPerPage_fromRepo() {
+        assertEquals(CHARACTERS_PER_PAGE, repo.getPageSize())
     }
 
     @Test
-    fun getCharacterList_emitsRepoStateError_onError() = runBlocking {
-        coEvery { dao.getAllCharacters() } throws Exception()
+    fun fetchFromLocal_calls_getAllCharacters() = runBlocking {
+        val entities = listOf(getCharacterEntity(1L, name = "Aang"))
 
-        val emits = arrayListOf<RepoState<List<CharacterEntity>>>()
-        repo.getCharacterList().toList(emits)
+        coEvery {
+            dao.getAllCharacters(
+                0,
+                CHARACTERS_PER_PAGE,
+                CharacterOrderBy.CHARACTER_NAME
+            )
+        } returns entities
 
-        assertTrue(emits[0] is RepoState.Loading)
-        assertTrue(emits[1] is RepoState.Error)
+        repo.fetchFromLocal(dao, 0, CHARACTERS_PER_PAGE)
+
+        coVerify { dao.getAllCharacters(0, CHARACTERS_PER_PAGE, CharacterOrderBy.CHARACTER_NAME) }
+    }
+
+    @Test(expected = Exception::class)
+    fun saveToLocal_calls_daoSave() = runBlocking {
+        val entities = listOf(getCharacterEntity(1L, name = "Aang"))
+
+        coEvery {
+            dao.save(entities)
+        } throws Exception("Mocking that dao save was called")
+
+        repo.saveToLocal(dao, entities)
+    }
+
+    @Test
+    fun fetchFromNetwork_callsService_andProcessor() = runBlocking {
+        val responses =
+            listOf(getResponse(characterName = "Aang"), getResponse(characterName = "Iroh"))
+
+        val entities = listOf(
+            getCharacterEntity(1L, characterId = "TestId", name = "Aang"),
+            getCharacterEntity(2L, characterId = "TestId", name = "Iroh")
+        )
+
+        coEvery { service.getAllCharacters(5, 1) } returns responses
+        coEvery { characterListResponseProcessor.process(responses) } returns entities
+
+        val result = repo.fetchFromNetwork(service, 1, 5)
+
+        assertThat(entities, equalTo(result))
     }
 
     private fun getResponse(

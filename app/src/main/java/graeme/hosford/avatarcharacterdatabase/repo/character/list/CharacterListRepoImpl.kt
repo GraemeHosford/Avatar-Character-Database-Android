@@ -1,5 +1,6 @@
 package graeme.hosford.avatarcharacterdatabase.repo.character.list
 
+import androidx.annotation.VisibleForTesting
 import graeme.hosford.avatarcharacterdatabase.database.character.CharacterDao
 import graeme.hosford.avatarcharacterdatabase.entity.CharacterEntity
 import graeme.hosford.avatarcharacterdatabase.network.character.AvatarCharacterRetrofitService
@@ -15,18 +16,22 @@ class CharacterListRepoImpl @Inject constructor(
     dao
 ), CharacterListRepo {
 
-    override fun getPageSize() = CHARACTERS_PER_PAGE
+    @VisibleForTesting(otherwise = VisibleForTesting.PROTECTED)
+    public override fun getPageSize() = CHARACTERS_PER_PAGE
 
-    override suspend fun fetchFromLocal(
+    @VisibleForTesting(otherwise = VisibleForTesting.PROTECTED)
+    public override suspend fun fetchFromLocal(
         dao: CharacterDao,
         offset: Int,
         limit: Int
     ) = dao.getAllCharacters(offset, limit, CharacterOrderBy.CHARACTER_NAME)
 
-    override suspend fun saveToLocal(dao: CharacterDao, entities: List<CharacterEntity>) =
+    @VisibleForTesting(otherwise = VisibleForTesting.PROTECTED)
+    public override suspend fun saveToLocal(dao: CharacterDao, entities: List<CharacterEntity>) =
         dao.save(entities)
 
-    override suspend fun fetchFromNetwork(
+    @VisibleForTesting(otherwise = VisibleForTesting.PROTECTED)
+    public override suspend fun fetchFromNetwork(
         service: AvatarCharacterRetrofitService,
         page: Int,
         pageSize: Int

@@ -2,8 +2,8 @@ package graeme.hosford.avatarcharacterdatabase.ui.common.view.viewmodel
 
 import androidx.annotation.CallSuper
 import androidx.lifecycle.viewModelScope
-import graeme.hosford.avatarcharacterdatabase.repo.common.PaginatedRepo
 import graeme.hosford.avatarcharacterdatabase.repo.common.RepoState
+import graeme.hosford.avatarcharacterdatabase.repo.common.pagination.PaginatedRepo
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 

@@ -1,12 +1,15 @@
-package graeme.hosford.avatarcharacterdatabase.repo.common
+package graeme.hosford.avatarcharacterdatabase.repo.common.pagination
 
+import graeme.hosford.avatarcharacterdatabase.repo.common.BaseRepo
+import graeme.hosford.avatarcharacterdatabase.repo.common.RepoState
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.flow
 
 abstract class BasePaginatedRepo<Service, DAO, DataType>(
     service: Service,
     dao: DAO
-) : BaseRepo<Service, DAO, List<DataType>>(service, dao), PaginatedRepo<DataType> {
+) : BaseRepo<Service, DAO, List<DataType>>(service, dao),
+    PaginatedRepo<DataType> {
     private var page = 1
 
     override suspend fun getNextPage() = fetchData {

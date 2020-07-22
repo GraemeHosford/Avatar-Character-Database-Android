@@ -1,5 +1,6 @@
-package graeme.hosford.avatarcharacterdatabase.repo.common
+package graeme.hosford.avatarcharacterdatabase.repo.common.pagination
 
+import graeme.hosford.avatarcharacterdatabase.repo.common.RepoState
 import kotlinx.coroutines.flow.Flow
 
 interface PaginatedRepo<DataType> {

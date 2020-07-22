@@ -3,7 +3,7 @@ package graeme.hosford.avatarcharacterdatabase.repo.character.list
 import graeme.hosford.avatarcharacterdatabase.database.character.CharacterDao
 import graeme.hosford.avatarcharacterdatabase.entity.CharacterEntity
 import graeme.hosford.avatarcharacterdatabase.network.character.AvatarCharacterRetrofitService
-import graeme.hosford.avatarcharacterdatabase.repo.common.BasePaginatedRepo
+import graeme.hosford.avatarcharacterdatabase.repo.common.pagination.BasePaginatedRepo
 import javax.inject.Inject
 
 class CharacterListRepoImpl @Inject constructor(

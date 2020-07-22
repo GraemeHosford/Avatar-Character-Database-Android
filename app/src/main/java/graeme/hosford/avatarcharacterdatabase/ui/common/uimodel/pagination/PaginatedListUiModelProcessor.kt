@@ -1,4 +1,8 @@
-package graeme.hosford.avatarcharacterdatabase.ui.common.uimodel
+package graeme.hosford.avatarcharacterdatabase.ui.common.uimodel.pagination
+
+import graeme.hosford.avatarcharacterdatabase.ui.common.uimodel.BaseUiModel
+import graeme.hosford.avatarcharacterdatabase.ui.common.uimodel.ListUiModelProcessor
+import graeme.hosford.avatarcharacterdatabase.ui.common.uimodel.UiModelConverter
 
 abstract class PaginatedListUiModelProcessor<Entity, UiModel : BaseUiModel>(
     converter: UiModelConverter<Entity, UiModel>,

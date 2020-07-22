@@ -7,7 +7,7 @@ import graeme.hosford.avatarcharacterdatabase.entity.CharacterEntity
 import graeme.hosford.avatarcharacterdatabase.repo.character.list.CharacterListRepo
 import graeme.hosford.avatarcharacterdatabase.ui.character.list.model.CharacterListItemUiModel
 import graeme.hosford.avatarcharacterdatabase.ui.character.list.model.CharacterListItemUiModelProcessor
-import graeme.hosford.avatarcharacterdatabase.ui.common.view.viewmodel.BasePaginatedViewModel
+import graeme.hosford.avatarcharacterdatabase.ui.common.view.viewmodel.pagination.BasePaginatedViewModel
 
 class CharacterListViewModel @ViewModelInject constructor(
     repo: CharacterListRepo,

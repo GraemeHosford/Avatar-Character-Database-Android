@@ -1,6 +1,7 @@
 package graeme.hosford.avatarcharacterdatabase.repo.character.list
 
-import graeme.hosford.avatarcharacterdatabase.database.character.CharacterDao
+import graeme.hosford.avatarcharacterdatabase.database.layer.character.CharacterDao
+import graeme.hosford.avatarcharacterdatabase.database.layer.character.CharacterOrderBy
 import graeme.hosford.avatarcharacterdatabase.entity.layer.CharacterEntity
 import graeme.hosford.avatarcharacterdatabase.network.layer.character.AvatarCharacterRetrofitService
 import graeme.hosford.avatarcharacterdatabase.network.layer.character.CharacterResponse

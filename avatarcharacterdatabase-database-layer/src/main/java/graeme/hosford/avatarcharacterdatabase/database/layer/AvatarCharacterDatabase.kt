@@ -1,12 +1,12 @@
-package graeme.hosford.avatarcharacterdatabase.database
+package graeme.hosford.avatarcharacterdatabase.database.layer
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import graeme.hosford.avatarcharacterdatabase.database.AvatarCharacterDatabase.Companion.DATABASE_VERSION
-import graeme.hosford.avatarcharacterdatabase.database.character.CharacterDao
+import graeme.hosford.avatarcharacterdatabase.database.layer.AvatarCharacterDatabase.Companion.DATABASE_VERSION
+import graeme.hosford.avatarcharacterdatabase.database.layer.character.CharacterDao
 import graeme.hosford.avatarcharacterdatabase.entity.layer.CharacterEntity
 
 @Database(version = DATABASE_VERSION, entities = [CharacterEntity::class])

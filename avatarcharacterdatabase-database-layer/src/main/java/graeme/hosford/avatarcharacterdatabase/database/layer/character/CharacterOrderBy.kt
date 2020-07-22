@@ -1,7 +1,7 @@
-package graeme.hosford.avatarcharacterdatabase.repo.character.list
+package graeme.hosford.avatarcharacterdatabase.database.layer.character
 
 import androidx.annotation.StringDef
-import graeme.hosford.avatarcharacterdatabase.repo.character.list.CharacterOrderBy.Companion.CHARACTER_NAME
+import graeme.hosford.avatarcharacterdatabase.database.layer.character.CharacterOrderBy.Companion.CHARACTER_NAME
 
 @StringDef(CHARACTER_NAME)
 @Retention(AnnotationRetention.SOURCE)

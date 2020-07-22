@@ -1,4 +1,4 @@
-package graeme.hosford.avatarcharacterdatabase.database
+package graeme.hosford.avatarcharacterdatabase.database.layer
 
 import androidx.room.TypeConverter
 import com.squareup.moshi.Moshi

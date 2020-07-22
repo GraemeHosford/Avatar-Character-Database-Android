@@ -1,12 +1,11 @@
-package graeme.hosford.avatarcharacterdatabase.database.character
+package graeme.hosford.avatarcharacterdatabase.database.layer.character
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import graeme.hosford.avatarcharacterdatabase.database.Converters
+import graeme.hosford.avatarcharacterdatabase.database.layer.Converters
 import graeme.hosford.avatarcharacterdatabase.entity.layer.CharacterEntity
-import graeme.hosford.avatarcharacterdatabase.repo.character.list.CharacterOrderBy
 
 @Dao
 interface CharacterDao {

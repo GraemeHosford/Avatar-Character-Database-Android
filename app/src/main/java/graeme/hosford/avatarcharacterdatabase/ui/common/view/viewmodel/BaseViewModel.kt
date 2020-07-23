@@ -4,7 +4,7 @@ import androidx.annotation.CallSuper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import graeme.hosford.avatarcharacterdatabase.repo.common.RepoState
+import graeme.hosford.avatarcharacterdatabase.repo.layer.common.RepoState
 
 abstract class BaseViewModel<Result> : ViewModel() {
     protected val resultMutable = MutableLiveData<ViewModelResult>()

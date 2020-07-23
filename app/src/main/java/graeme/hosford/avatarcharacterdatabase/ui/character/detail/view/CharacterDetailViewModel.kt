@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import graeme.hosford.avatarcharacterdatabase.entity.layer.CharacterEntity
-import graeme.hosford.avatarcharacterdatabase.repo.character.detail.CharacterDetailRepo
+import graeme.hosford.avatarcharacterdatabase.repo.layer.character.detail.CharacterDetailRepo
 import graeme.hosford.avatarcharacterdatabase.ui.character.detail.model.CharacterDetailUiModel
 import graeme.hosford.avatarcharacterdatabase.ui.character.detail.model.CharacterDetailUiModelProcessor
 import graeme.hosford.avatarcharacterdatabase.ui.common.view.viewmodel.BaseViewModel

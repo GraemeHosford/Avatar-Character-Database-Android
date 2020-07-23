@@ -14,6 +14,7 @@
             <option value="$PROJECT_DIR$/avatarcharacterdatabase-database-layer" />
             <option value="$PROJECT_DIR$/avatarcharacterdatabase-entity-layer" />
             <option value="$PROJECT_DIR$/avatarcharacterdatabase-network-layer" />
+            <option value="$PROJECT_DIR$/avatarcharacterdatabase-repo-layer" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

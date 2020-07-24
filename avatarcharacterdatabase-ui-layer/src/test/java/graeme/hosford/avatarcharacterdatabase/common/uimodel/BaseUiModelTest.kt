@@ -1,6 +1,5 @@
-package graeme.hosford.avatarcharacterdatabase.ui.common.uimodel
+package graeme.hosford.avatarcharacterdatabase.common.uimodel
 
-import graeme.hosford.avatarcharacterdatabase.common.uimodel.BaseUiModel
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Test

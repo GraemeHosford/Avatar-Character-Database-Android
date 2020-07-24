@@ -1,8 +1,5 @@
-package graeme.hosford.avatarcharacterdatabase.ui.character.list.model
+package graeme.hosford.avatarcharacterdatabase.character.list.model
 
-import graeme.hosford.avatarcharacterdatabase.character.list.model.CharacterListItemUiModel
-import graeme.hosford.avatarcharacterdatabase.character.list.model.CharacterListItemUiModelConverter
-import graeme.hosford.avatarcharacterdatabase.character.list.model.CharacterListItemUiModelProcessor
 import graeme.hosford.avatarcharacterdatabase.entity.layer.CharacterEntity
 import io.mockk.MockKAnnotations
 import io.mockk.every

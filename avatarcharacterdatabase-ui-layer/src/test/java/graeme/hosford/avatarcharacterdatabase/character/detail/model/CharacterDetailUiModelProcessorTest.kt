@@ -1,9 +1,6 @@
-package graeme.hosford.avatarcharacterdatabase.ui.character.detail.model
+package graeme.hosford.avatarcharacterdatabase.character.detail.model
 
 import graeme.hosford.avatarcharacterdatabase.R
-import graeme.hosford.avatarcharacterdatabase.character.detail.model.CharacterDetailUiModelConverter
-import graeme.hosford.avatarcharacterdatabase.character.detail.model.CharacterDetailUiModelProcessor
-import graeme.hosford.avatarcharacterdatabase.character.detail.model.CharacterSingleDetailUiModel
 import graeme.hosford.avatarcharacterdatabase.entity.layer.CharacterEntity
 import io.mockk.MockKAnnotations
 import io.mockk.every
@@ -62,13 +59,12 @@ class CharacterDetailUiModelProcessorTest {
                 "katara"
             )
         )
-    ) =
-        _root_ide_package_.graeme.hosford.avatarcharacterdatabase.character.detail.model.CharacterDetailUiModel(
-            id,
-            name,
-            photoUrl,
-            details
-        )
+    ) = CharacterDetailUiModel(
+        id,
+        name,
+        photoUrl,
+        details
+    )
 
     private fun getCharacterEntity(
         id: Long,

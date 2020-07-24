@@ -1,8 +1,5 @@
-package graeme.hosford.avatarcharacterdatabase.ui.common.uimodel
+package graeme.hosford.avatarcharacterdatabase.common.uimodel
 
-import graeme.hosford.avatarcharacterdatabase.common.uimodel.BaseUiModel
-import graeme.hosford.avatarcharacterdatabase.common.uimodel.SingleUiModelProcessor
-import graeme.hosford.avatarcharacterdatabase.common.uimodel.UiModelConverter
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.MatcherAssert.assertThat

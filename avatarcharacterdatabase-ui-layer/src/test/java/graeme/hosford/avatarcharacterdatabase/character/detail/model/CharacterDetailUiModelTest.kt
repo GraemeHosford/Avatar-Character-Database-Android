@@ -1,7 +1,6 @@
-package graeme.hosford.avatarcharacterdatabase.ui.character.detail.model
+package graeme.hosford.avatarcharacterdatabase.character.detail.model
 
 import graeme.hosford.avatarcharacterdatabase.R
-import graeme.hosford.avatarcharacterdatabase.character.detail.model.CharacterSingleDetailUiModel
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -53,11 +52,10 @@ class CharacterDetailUiModelTest {
                 "katara"
             )
         )
-    ) =
-        _root_ide_package_.graeme.hosford.avatarcharacterdatabase.character.detail.model.CharacterDetailUiModel(
-            id,
-            name,
-            photoUrl,
-            details
-        )
+    ) = CharacterDetailUiModel(
+        id,
+        name,
+        photoUrl,
+        details
+    )
 }

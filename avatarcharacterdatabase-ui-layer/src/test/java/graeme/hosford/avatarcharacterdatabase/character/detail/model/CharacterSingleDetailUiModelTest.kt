@@ -1,8 +1,7 @@
-package graeme.hosford.avatarcharacterdatabase.ui.character.detail.model
+package graeme.hosford.avatarcharacterdatabase.character.detail.model
 
 import androidx.annotation.StringRes
 import graeme.hosford.avatarcharacterdatabase.R
-import graeme.hosford.avatarcharacterdatabase.character.detail.model.CharacterSingleDetailUiModel
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test

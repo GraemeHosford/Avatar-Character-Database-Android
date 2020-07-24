@@ -1,6 +1,5 @@
-package graeme.hosford.avatarcharacterdatabase.ui.character.list.model
+package graeme.hosford.avatarcharacterdatabase.character.list.model
 
-import graeme.hosford.avatarcharacterdatabase.character.list.model.CharacterListItemUiModel
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test

@@ -1,8 +1,7 @@
-package graeme.hosford.avatarcharacterdatabase.ui.common.uimodel.pagination
+package graeme.hosford.avatarcharacterdatabase.common.uimodel.pagination
 
 import graeme.hosford.avatarcharacterdatabase.common.uimodel.BaseUiModel
 import graeme.hosford.avatarcharacterdatabase.common.uimodel.UiModelConverter
-import graeme.hosford.avatarcharacterdatabase.common.uimodel.pagination.PaginatedListUiModelProcessor
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.Assert.assertThat

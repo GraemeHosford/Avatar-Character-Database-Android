@@ -1,8 +1,5 @@
-package graeme.hosford.avatarcharacterdatabase.ui.common.uimodel
+package graeme.hosford.avatarcharacterdatabase.common.uimodel
 
-import graeme.hosford.avatarcharacterdatabase.common.uimodel.BaseUiModel
-import graeme.hosford.avatarcharacterdatabase.common.uimodel.ListUiModelProcessor
-import graeme.hosford.avatarcharacterdatabase.common.uimodel.UiModelConverter
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.Assert.assertThat
@@ -21,8 +18,14 @@ class ListUiModelProcessorTest {
     @Test
     fun processorProcess_returnsListOfUiModel() = runBlocking {
         val entities = listOf(
-            TestEntity(1L, "TestName1"),
-            TestEntity(2L, "TestName2")
+            TestEntity(
+                1L,
+                "TestName1"
+            ),
+            TestEntity(
+                2L,
+                "TestName2"
+            )
         )
 
         val expectedModels = listOf(

@@ -1,4 +1,4 @@
-package graeme.hosford.avatarcharacterdatabase.ui.character.common.model
+package graeme.hosford.avatarcharacterdatabase.character.common.model
 
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue

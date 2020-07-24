@@ -1,7 +1,5 @@
-package graeme.hosford.avatarcharacterdatabase.ui.character.list.model
+package graeme.hosford.avatarcharacterdatabase.character.list.model
 
-import graeme.hosford.avatarcharacterdatabase.character.list.model.CharacterListItemUiModel
-import graeme.hosford.avatarcharacterdatabase.character.list.model.CharacterListItemUiModelComparator
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.Assert.assertThat
 import org.junit.Test

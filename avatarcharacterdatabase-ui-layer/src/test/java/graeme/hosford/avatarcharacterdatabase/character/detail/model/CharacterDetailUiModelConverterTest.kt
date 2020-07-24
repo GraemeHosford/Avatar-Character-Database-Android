@@ -1,8 +1,6 @@
-package graeme.hosford.avatarcharacterdatabase.ui.character.detail.model
+package graeme.hosford.avatarcharacterdatabase.character.detail.model
 
 import graeme.hosford.avatarcharacterdatabase.R
-import graeme.hosford.avatarcharacterdatabase.character.detail.model.CharacterDetailUiModelConverter
-import graeme.hosford.avatarcharacterdatabase.character.detail.model.CharacterSingleDetailUiModel
 import graeme.hosford.avatarcharacterdatabase.entity.layer.CharacterEntity
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.Assert.assertThat
@@ -28,8 +26,7 @@ class CharacterDetailUiModelConverterTest {
             loves = "Katara"
         )
 
-        val expectedModel =
-            _root_ide_package_.graeme.hosford.avatarcharacterdatabase.character.detail.model.CharacterDetailUiModel(
+        val expectedModel = CharacterDetailUiModel(
                 1L,
                 "Aang",
                 "url",

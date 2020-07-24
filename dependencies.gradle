@@ -9,42 +9,53 @@ ext {
     kotlinJvmTargetVersion = "1.8"
 
     versions = [
-            kotlinstdlib          : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.72",
-            kotlin_coroutines     : "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.7",
-            kotlin_coroutines_test: "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.7",
+            android_tools_gradle     : 'com.android.tools.build:gradle:3.6.3',
 
-            androidx              : [
-                    appCompat          : "androidx.appcompat:appcompat:1.1.0",
-                    core               : "androidx.core:core-ktx:1.3.0",
-                    constraintlayout   : "androidx.constraintlayout:constraintlayout:1.1.3",
-                    fragment           : "androidx.fragment:fragment-ktx:1.2.5",
+            kotlin_gradle_plugin     : "org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.72",
+            kotlinstdlib             : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.72",
+            kotlin_coroutines        : "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.7",
+            kotlin_coroutines_test   : "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.7",
 
-                    hilt_common        : "androidx.hilt:hilt-common:1.0.0-alpha01",
-                    hilt_lifecycle     : "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha01",
-                    hilt_compiler      : "androidx.hilt:hilt-compiler:1.0.0-alpha01",
+            androidx                 : [
+                    appCompat                 : "androidx.appcompat:appcompat:1.1.0",
+                    core                      : "androidx.core:core-ktx:1.3.0",
+                    constraintlayout          : "androidx.constraintlayout:constraintlayout:1.1.3",
+                    fragment                  : "androidx.fragment:fragment-ktx:1.2.5",
 
-                    lifecycle_viewmodel: "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0",
-                    lifecycle_livedata : "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0",
-                    lifecycle_common   : "androidx.lifecycle:lifecycle-common-java8:2.2.0",
+                    hilt_common               : "androidx.hilt:hilt-common:1.0.0-alpha01",
+                    hilt_lifecycle            : "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha01",
+                    hilt_compiler             : "androidx.hilt:hilt-compiler:1.0.0-alpha01",
 
-                    navigation_fragment: "androidx.navigation:navigation-fragment-ktx:2.3.0",
-                    navigation_ui      : "androidx.navigation:navigation-ui-ktx:2.3.0",
+                    lifecycle_viewmodel       : "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0",
+                    lifecycle_livedata        : "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0",
+                    lifecycle_common          : "androidx.lifecycle:lifecycle-common-java8:2.2.0",
 
-                    recyclerview       : "androidx.recyclerview:recyclerview:1.1.0",
+                    navigation_fragment       : "androidx.navigation:navigation-fragment-ktx:2.3.0",
+                    navigation_ui             : "androidx.navigation:navigation-ui-ktx:2.3.0",
+                    navigation_safeargs_plugin: "androidx.navigation:navigation-safe-args-gradle-plugin:2.3.0",
 
-                    room_runtime       : "androidx.room:room-ktx:2.2.5",
-                    room_compiler      : "androidx.room:room-compiler:2.2.5",
+                    recyclerview              : "androidx.recyclerview:recyclerview:1.1.0",
+
+                    room_runtime              : "androidx.room:room-ktx:2.2.5",
+                    room_compiler             : "androidx.room:room-compiler:2.2.5",
             ],
 
-            glide                 : "com.github.bumptech.glide:glide:4.11.0",
-            glide_compiler        : "com.github.bumptech.glide:compiler:4.11.0",
+            glide                    : "com.github.bumptech.glide:glide:4.11.0",
+            glide_compiler           : "com.github.bumptech.glide:compiler:4.11.0",
 
-            dagger_hilt           : "com.google.dagger:hilt-android:2.28.1-alpha",
-            dagger_hilt_compiler  : "com.google.dagger:hilt-android-compiler:2.28.1-alpha",
+            dagger_hilt              : "com.google.dagger:hilt-android:2.28.1-alpha",
+            dagger_hilt_compiler     : "com.google.dagger:hilt-android-compiler:2.28.1-alpha",
+            dagger_hilt_gradle_plugin: "com.google.dagger:hilt-android-gradle-plugin:2.28.1-alpha",
 
-            espresso              : "androidx.test.espresso:espresso-core:3.2.0",
-            junit                 : "junit:junit:4.12",
-            junit_ext             : "androidx.test.ext:junit:1.1.1",
-            mockk                 : "io.mockk:mockk:1.10.0"
+            moshi                    : "com.squareup.moshi:moshi:1.9.3",
+            moshi_codegen            : "com.squareup.moshi:moshi-kotlin-codegen:1.9.3",
+
+            retrofit                 : "com.squareup.retrofit2:retrofit:2.9.0",
+            retrofit_moshi_converter : "com.squareup.retrofit2:converter-moshi:2.9.0",
+
+            espresso                 : "androidx.test.espresso:espresso-core:3.2.0",
+            junit                    : "junit:junit:4.12",
+            junit_ext                : "androidx.test.ext:junit:1.1.1",
+            mockk                    : "io.mockk:mockk:1.10.0"
     ]
 }

@@ -19,10 +19,6 @@ class CharacterDetailUiModelConverter @Inject constructor() :
                 * negative so they can't possibly overlap any database Id. This shouldn't be an
                 * issue in this app but could be in a screen which uses a RecyclerView with multiple
                 * different view types. */
-                getDetailUiModel(-1L, R.string.character_detail_gender, gender),
-                getDetailUiModel(-2L, R.string.character_detail_eye_colour, eyeColour),
-                getDetailUiModel(-3L, R.string.character_detail_hair_colour, hairColour),
-                getDetailUiModel(-4L, R.string.character_detail_skin_colour, skinColour),
                 getDetailUiModel(
                     -5L,
                     R.string.character_detail_allies,
@@ -33,6 +29,10 @@ class CharacterDetailUiModelConverter @Inject constructor() :
                     R.string.character_detail_enemies,
                     enemies?.joinToString(separator = "\n")
                 ),
+                getDetailUiModel(-1L, R.string.character_detail_gender, gender),
+                getDetailUiModel(-2L, R.string.character_detail_eye_colour, eyeColour),
+                getDetailUiModel(-3L, R.string.character_detail_hair_colour, hairColour),
+                getDetailUiModel(-4L, R.string.character_detail_skin_colour, skinColour),
                 getDetailUiModel(-7L, R.string.character_detail_weapon, weapon),
                 getDetailUiModel(-8L, R.string.character_detail_loves, loves),
                 getDetailUiModel(-9L, R.string.character_detail_profession, profession),

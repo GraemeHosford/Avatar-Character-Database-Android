@@ -15,7 +15,7 @@ class CharacterUiModelTest {
     }
 
     @Test
-    fun characterUiModel_areContentsTheSmae_returnsFalse_forModels_withAnyDifferingValue() {
+    fun characterUiModel_areContentsTheSame_returnsFalse_forModels_withAnyDifferingValue() {
         val model1 = TestCharacterUiModel(id = 1L)
         val model2 = TestCharacterUiModel(id = 2L)
         assertFalse(model1.areContentsTheSame(model2))
@@ -33,7 +33,7 @@ class CharacterUiModelTest {
         id: Long = 1L,
         name: String = "Aang",
         photoUrl: String? = null
-    ) : _root_ide_package_.graeme.hosford.avatarcharacterdatabase.character.common.model.CharacterUiModel(
+    ) : CharacterUiModel(
         id,
         name,
         photoUrl

@@ -1,8 +1,6 @@
 
 # Avatar Character Database Android  
-  
-This project is still under active development and isn't yet considered complete.
-***  
+***
 ### Acknowledgements  
 The current version of the app uses a REST API which is not developed by me. I do plan on creating my own in future to accompany this project but all credit for the current version goes to [GitHub user paigeegorry](https://github.com/paigeegorry/last-airbender-api).   
   
